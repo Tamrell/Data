@@ -11,9 +11,8 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 >  - Power Consumption Amsterdam
 >  - Vast 2017 mini challenge 2
 #### Tuesday
-:::
-Here be Deadline
-:::
+> First meeting with Nick
+>
 #### Wednesday
 #### Thursday
 #### Friday
