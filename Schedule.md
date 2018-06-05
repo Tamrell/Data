@@ -11,8 +11,9 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 >  - Power Consumption Amsterdam
 >  - Vast 2017 mini challenge 2
 #### Tuesday
-> First meeting with Nick
->
+> #####First meeting with Nick:
+> During this meeting, we have unanimously chosen for the Vast 2017 mini challenge 2
+> The meeting on thursday the 14th has been moved to friday the 15th
 #### Wednesday
 #### Thursday
 #### Friday
