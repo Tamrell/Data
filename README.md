@@ -17,20 +17,23 @@ These sensors collect information on several substances of potential concern, in
 ----
 
 he following are the factory locations:
-Roadrunner Fitness Electronics: 89,27
-Kasios Office Furniture: 90,21
-Radiance ColourTek: 109,26
-Indigo Sol Boards: 120,22
+- Roadrunner Fitness Electronics: 89,27
+- Kasios Office Furniture: 90,21
+- Radiance ColourTek: 109,26
+- Indigo Sol Boards: 120,22
+
 The following are the sensor locations:
-1: 	62,21
-2: 	66,35
-3: 	76,41
-4: 	88,45
-5: 	103,43
-6: 	102,22
-7: 	89,3
-8: 	74,7
-9: 	119,42
+1. 	62,21
+2. 	66,35
+3. 	76,41
+4. 	88,45
+5. 	103,43
+6. 	102,22
+7. 	89,3
+8. 	74,7
+9. 	119,42
+
+
 ### Main Questions
 
 - Characterize the sensors’ performance and operation. Are they all working properly at all times? Can you detect any unexpected behaviors of the sensors through analyzing the readings they capture?Limit your response to no more than 9 images and 1000 words.
