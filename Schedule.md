@@ -3,8 +3,10 @@
 Here will be kept a weekly schedule for the project in order to keep track of:
 - goals
 - task management
-- deadlines
 
+# Current challenges
+
+- Wind speed is measured every 3 hours, while the chemicals are measured every hour. We will have to use regression in order to fill in the Wind speeds at every hour.
 
 Date | Time | Location
 ---- | ---- | ----
@@ -12,9 +14,9 @@ Date | Time | Location
 12 | 9-12 | B1.19
 19 | 12-15 | B1.19
 21 | 12-15 | B1.19
+git 
+## Week 1
 
-
-## Week 1 
 #### Monday
 > After the first seminar, we had a meeting in order to discuss which dataset/project we are going to use.
 > The current options are:
