@@ -4,10 +4,16 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 - goals
 - task management
 - deadlines
-| Date | 8-6 | 12-6 | 19-6 | 21-6 |
-| --- | --- | --- | --- | --- | --- |
-| Time | 14-17 | 9-12 | 12-15 | 12-15 |
-| Location | B1.19 | B1.19 | B1.19 |
+
+
+Date | Time | Location
+---- | ---- | ----
+8 | 14-17 | B1.19
+12 | 9-12 | B1.19
+19 | 12-15 | B1.19
+21 | 12-15 | B1.19
+
+
 ## Week 1 
 #### Monday
 > After the first seminar, we had a meeting in order to discuss which dataset/project we are going to use.
