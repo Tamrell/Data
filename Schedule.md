@@ -12,7 +12,9 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 - The elevation (m) only has 1 value, apparantly this is the same at all points so it is irrelevent for comparison.
 - Column 'Date Time' is actually 'Date Time ' (with a space at the end)
 - Each year in the date appears to be the same, can we scrap the year from the format?
-- Redundant Data, we can add columns for each chemical sensor pair, leaving out the reading, in the following form:
+- Might be a fun idea to plot the wind currents on top of the map! (if the wind speed varies per area?)
+- It looks like we might deduce the missing wind currents from the changes in measured concentrations of chemicals
+- Redundant Data, we can add columns for each chemical sensor pair?, leaving out the reading, in the following form:
 
 Date Time | Chemical 1 , Sensor 1 | Chem 1, S2... | Chem 2, S1 .etc
 --- | --- | --- | ---
