@@ -1,6 +1,6 @@
 # Data Analysis and Visualisation
 Project folder for DAV
 ### The Project
-Yet to choose one:p
+VAST 2017
 ### Authors
 Angelo Groot, Hidde Jessen, Philip Kleinbrahm, Sven Boogmans

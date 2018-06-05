@@ -4,19 +4,20 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 - goals
 - task management
 
-## Current challenges
+## Current challenges and remarks
 
 -----
 
-- Wind speed (m/s) is measured every 3 hours, while the chemicals are measured every hour. We will have to use regression in order to fill in the Wind speeds at every hour.
+- Wind speed (m/s) is measured every 3 hours, while the chemicals are measured every hour. We will have to use interpolar regression in order to fill in the Wind speeds at every hour.
 - The elevation (m) only has 1 value, apparantly this is the same at all points so it is irrelevent for comparison.
-- Column 'Date Time' is actually 'Date Time '
-- Redundant Data, we can add columns for each chemical in the following form:
- 
+- Column 'Date Time' is actually 'Date Time ' (with a space at the end)
+- Each year in the date appears to be the same, can we scrap the year from the format?
+- Redundant Data, we can add columns for each chemical sensor pair, leaving out the reading, in the following form:
+
 Date Time | Chemical 1 , Sensor 1 | Chem 1, S2... | Chem 2, S1 .etc
 --- | --- | --- | ---
-8:09 | 204.5 | 100.3 | 240.2
-?? | ?? | ?? | ??
+8:00 | 204.5 | 100.3 | 240.2
+8:03 | 205 | 98 | 119
 
 ------
 Reservations in June:
