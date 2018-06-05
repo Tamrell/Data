@@ -14,7 +14,7 @@ Date | Time | Location
 12 | 9-12 | B1.19
 19 | 12-15 | B1.19
 21 | 12-15 | B1.19
-
+git 
 ## Week 1
 
 #### Monday
