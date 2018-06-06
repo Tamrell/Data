@@ -25,15 +25,19 @@ he following are the factory locations:
 - Indigo Sol Boards: 120,22
 
 The following are the sensor locations:
-1. 	62,21
-2. 	66,35
-3. 	76,41
-4. 	88,45
-5. 	103,43
-6. 	102,22
-7. 	89,3
-8. 	74,7
-9. 	119,42
+
+
+Sensor | Location
+--- | ---
+1 | 62,21
+2 |	66,35
+3 | 76,41
+4 |	88,45
+5 |	103,43
+6 |	102,22
+7 |	89,3
+8 |	74,7
+9 |	119,42
 
 
 ### Main Questions
