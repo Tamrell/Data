@@ -15,7 +15,8 @@ These sensors collect information on several substances of potential concern, in
 - AGOC-3A – New environmental regulations, and consumer demand, have led to the development of low-VOC and zero-VOC solvents. Most manufacturers now use one or more low-VOC substances and Mistford’s plants have wholeheartedly signed on. These new solvents, including AGOC-3A, are less harmful to human and environmental health.
 
 ----
-The Reserve is 12 miles^2
+The Reserve is 
+912 (miles)^2
 ![alt text](Angelo/data/MapLargeLabels.jpg "Reserve map")
 
 he following are the factory locations:
