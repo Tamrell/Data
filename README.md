@@ -1,5 +1,5 @@
 # Data Analysis and Visualisation
-Project folder for DAV
+Project folder for DAV 
 ## VAST Challenge 2017 MC2
 ### introductionary text
 
@@ -15,6 +15,7 @@ These sensors collect information on several substances of potential concern, in
 - AGOC-3A – New environmental regulations, and consumer demand, have led to the development of low-VOC and zero-VOC solvents. Most manufacturers now use one or more low-VOC substances and Mistford’s plants have wholeheartedly signed on. These new solvents, including AGOC-3A, are less harmful to human and environmental health.
 
 ----
+The Reserve is 12 miles^2
 ![alt text](Angelo/data/MapLargeLabels.jpg "Reserve map")
 
 he following are the factory locations:
@@ -42,4 +43,5 @@ The following are the sensor locations:
 - Which factories are responsible for which chemical releases? Carefully describe how you determined this using all the data you have available. For the factories you identified, describe any observed patterns of operation revealed in the data. Limit your response to no more than 8 images and 1000 words.
 
 ### Authors
-Angelo Groot, Hidde Jessen, Philip Kleinbrahm, Sven Boogmans
+De Gedreven Bois:
+Angelo Groot, Hidde Jessen, Philip Kleinbrahm en Sven Boogmans
