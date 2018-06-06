@@ -16,7 +16,7 @@ These sensors collect information on several substances of potential concern, in
 
 ----
 The Reserve is 
-912 (miles)^2
+(12 miles)^2
 ![alt text](Angelo/data/MapLargeLabels.jpg "Reserve map")
 
 he following are the factory locations:
