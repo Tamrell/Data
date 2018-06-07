@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from pandas import ExcelWriter
 from pandas import ExcelFile
+from bokeh.plotting import figure, output_file, show
 
 # Read into Meteorological_Data.xlsx.
 m_data = pd.read_excel('Meteorological_Data.xlsx', sheet='Sheet1')
@@ -41,7 +42,14 @@ integrated_data = s_data
 #sorted_by_chem_dat_mon = integrated_data.sort_values(['Chemical', 'Date Time', 'Monitor'])
 #sorted_by_mon_chem_dat = integrated_data.sort_values(['Monitor', 'Chemical', 'Date Time'])
 
-#writer = pd.ExcelWriter('Integrated_Data.xlsx')
-#integrated_data.to_excel(writer, 'Sheet1')
+#plot = figure(x_axis_type = 'datetime')
+#plot.scatter(x=integrated_data['Date Time'], y=integrated_data['Wind Speed'])
+#output_file('Wind speed over Time')
+#show(plot)
 
-integrated_data.to_csv('Integrated_Data.csv')
+plot = figure(x_axis_type = 'datetime')
+plot.scatter(x=integrated_data['Date Time'], y=integrated_data['Reading'])
+output_file('Reading over Time')
+show(plot)
+
+#integrated_data.to_csv('Integrated_Data.csv')
