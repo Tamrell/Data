@@ -59,3 +59,4 @@ Date | Time | Location
 
 #### Thursday
 #### Friday
+> Hidde: 460 was een lege regel, alles hier onder 1 omhoog geschoven.
