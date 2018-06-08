@@ -44,4 +44,5 @@ for i,txt in enumerate(namesfactories):
 for i, txt in enumerate(namessensors):
 	ax.annotate(txt, (xsensors[i],ysensors[i]))
 
+plt.savefig('map.jpg')
 plt.show(fig)
