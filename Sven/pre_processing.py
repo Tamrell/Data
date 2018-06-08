@@ -47,9 +47,9 @@ integrated_data = s_data
 #output_file('Wind speed over Time')
 #show(plot)
 
-plot = figure(x_axis_type = 'datetime')
-plot.scatter(x=integrated_data['Date Time'], y=integrated_data['Reading'])
-output_file('Reading over Time')
-show(plot)
+#plot = figure(x_axis_type = 'datetime')
+#plot.scatter(x=integrated_data['Date Time'], y=integrated_data['Reading'])
+#output_file('Reading over Time')
+#show(plot)
 
 #integrated_data.to_csv('Integrated_Data.csv')

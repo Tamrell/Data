@@ -1,25 +1,22 @@
 import pandas as pd
+import numpy as np
 import csv
 
 def fix_dir():
 
     df2 = pd.read_excel("data/Meteorological Data.xlsx", index_col=None)
 
-    # Temporary solution!!!!
-    df2.dropna()
-
     geo = {}
     for _, row in df2.iterrows():
         time = row['Date']
         dir = row['Wind Direction']
         speed = row['Wind Speed (m/s)']
-        geo[time] = [dir, speed]
+        geo[time] = [np.sin(np.deg2rad(dir)), speed]
 
     df = pd.read_excel("data/Sensor Data.xlsx", index_col=None)
     chemicals = sorted(list({chemical for chemical in df['Chemical']}))
     monitors = {monitor for monitor in df['Monitor']}
     timestamps = {time for time in df['Date Time ']}
-    header = ['Timestamp'] + chemicals + ['Wind Direction', 'Wind Speed']
 
     readings = {time: {chem: {m: None
                               for m in monitors}
@@ -34,7 +31,7 @@ def fix_dir():
         readings[time][chem][mon] = readings
 
     with open('reduced.csv', 'w') as nf:
-        writer = csv.writer(nf, delimiter=';')
+        writer = csv.writer(nf, delimiter=',')
 
         # Set header for the new file.
         writer.writerow(header)

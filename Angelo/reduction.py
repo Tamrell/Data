@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import csv
 
 def tuples():
@@ -15,14 +16,16 @@ def tuples():
         dir = row['Wind Direction']
         speed = row['Wind Speed (m/s)']
         try:
-            if isinstance(dir)
-        geo[time] = [dir, speed]
+            geo[time] = [np.sin(np.deg2rad(float(dir))), speed]
+            print(geo[time])
+        except:
+            print(dir)
 
     df = pd.read_excel("data/Sensor Data.xlsx", index_col=None)
     chemicals = sorted(list({chemical for chemical in df['Chemical']}))
     monitors = {monitor for monitor in df['Monitor']}
     timestamps = {time for time in df['Date Time ']}
-    header = ['Timestamp'] + chemicals + ['Wind Direction', 'Wind Speed']
+    header = ['Timestamp'] + ['Wind Direction', 'Wind Speed']
 
     readings = {time: {chem: {m: None
                               for m in monitors}
@@ -43,11 +46,12 @@ def tuples():
         writer.writerow(header)
         for time in sorted(list(readings)):
             if not time in geo:
-                geinfo = [None]
+                geinfo = []
             else:
                 geinfo = geo[time]
-            writer.writerow([time] + [tuple(readings[time][chem].values())
-                            for chem in readings[time]] + geinfo)
+            writer.writerow([time] + #[tuple(readings[time][chem].values())
+                            #for chem in readings[time]] +
+                            geinfo)
 
 def columns():
 
@@ -89,23 +93,21 @@ def columns():
             writer.writerow(header)
             for time in sorted(list(readings)):
                 if not time in geo:
-                    geinfo = [None]
+                    geinfo = []
                 else:
                     geinfo = geo[time]
-                writer.writerow([time] + [tuple(readings[time][chem].values())
-                                for chem in readings[time]] + geinfo)
-    header = [chem + '@' + str(mon) for chem in chemicals for mon in monitors]
-    header.insert(0, 'Date Time')
-    pass
+                writer.writerow([time] #+ [tuple(readings[time][chem].values())
+                                #or chem in readings[time]]
+                                + geinfo)
+        header = [chem + '@' + str(mon) for chem in chemicals for mon in monitors]
+        header.insert(0, 'Date Time')
+        pass
 
 if __name__ == '__main__':
 
-    columns()
+    tuples()
     exit(1)
     x = []
     y = []
-    with open('reduced.csv', 'r') as cf:
-        next(cf)
-        for line in cf:
-            i = line.split(';')
-            input(eval(i[1])[-1])
+    df = pd.read_csv('reduced.csv', delimiter=';')
+    df.interpolate(inplace=True)
