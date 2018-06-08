@@ -13,7 +13,8 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 - Column 'Date Time' is actually 'Date Time ' (with a space at the end)
 - Each year in the date appears to be the same, can we scrap the year from the format?
 - Might be a fun idea to plot the wind currents on top of the map! (if the wind speed varies per area?)
-- It looks like we might deduce the missing wind currents from the changes in measured concentrations of chemicals
+- It looks like we might deduce the missing wind currents from the changes in measured concentrations of chemicals?
+- We want to make a simplified grid that only contains the factories and the sensors. (coordinates unclear???)
 - Redundant Data, we can add columns for each chemical sensor pair?, leaving out the reading, in the following form:
 
 Date Time | Chemical 1 , Sensor 1 | Chem 1, S2... | Chem 2, S1 .etc
@@ -47,5 +48,14 @@ Date | Time | Location
 #### Wednesday
 > On wednesday we will meet at 11:00.
 > - jupyter notebook/python3
+> - Which data are we going to compare? -> data format
+
+  | chemical | sensor | reading | wind direction | wind speed | time
+--- | --- | --- | --- | --- | --- |
+ Data Type | nominal | nominal | ratio | ratio/ordinal? | ratio | Interval
+
+
+ Elevation?
+
 #### Thursday
 #### Friday
