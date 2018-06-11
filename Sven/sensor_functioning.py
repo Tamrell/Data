@@ -31,3 +31,58 @@ def plot_sensor_reading_chemical(sensor, chemical):
     plot.scatter(x=sensor_reading_chemical(sensor, chemical)['Date Time'], y=sensor_reading_chemical(sensor, chemical)['Reading'])
     output_file('Reading sensor' + str(sensor) + 'over Time for chemical' + str(chemical))
     show(plot)
+
+def plot_serounding_sensor_readings(group):
+    if group == 1:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading(9)['Date Time'], y=sensor_reading(9)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading(group)['Date Time'], y=sensor_reading(group)['Reading'], color="red")
+        plot.scatter(x=sensor_reading(group + 1)['Date Time'], y=sensor_reading(group + 1)['Reading'], color="green")
+        output_file('sensor_readings_groep' + str(group))
+        show(plot)
+        group = int(group)
+    elif group == 9:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading(group - 1)['Date Time'], y=sensor_reading(group - 1)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading(group)['Date Time'], y=sensor_reading(group)['Reading'], color="red")
+        plot.scatter(x=sensor_reading(1)['Date Time'], y=sensor_reading(1)['Reading'], color="green")
+        output_file('sensor_readings_groep' + str(group))
+        show(plot)
+        group = int(group)
+    else:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading(group - 1)['Date Time'], y=sensor_reading(group - 1)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading(group)['Date Time'], y=sensor_reading(group)['Reading'], color="red")
+        plot.scatter(x=sensor_reading(group + 1)['Date Time'], y=sensor_reading(group + 1)['Reading'], color="green")
+        output_file('sensor_readings_groep' + str(group))
+        show(plot)
+
+def plot_serounding_sensor_readings_chemical(group, chemical):
+    if group == 1:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading_chemical(9, chemical)['Date Time'], y=sensor_reading_chemical(9, chemical)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading_chemical(group, chemical)['Date Time'], y=sensor_reading_chemical(group, chemical)['Reading'], color="red")
+        plot.scatter(x=sensor_reading_chemical(group + 1, chemical)['Date Time'], y=sensor_reading_chemical(group + 1, chemical)['Reading'], color="green")
+        output_file('Reading_group' + str(group) + 'for chemical' + str(chemical))
+        show(plot)
+        group = int(group)
+    elif group == 9:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading_chemical(group - 1, chemical)['Date Time'], y=sensor_reading_chemical(group - 1, chemical)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading_chemical(group, chemical)['Date Time'], y=sensor_reading_chemical(group, chemical)['Reading'], color="red")
+        plot.scatter(x=sensor_reading_chemical(1, chemical)['Date Time'], y=sensor_reading_chemical(1, chemical)['Reading'], color="green")
+        output_file('Reading_group' + str(group) + 'for chemical' + str(chemical))
+        show(plot)
+        group = int(group)
+    else:
+        plot = figure(x_axis_type = 'datetime')
+        plot.scatter(x=sensor_reading_chemical(group - 1, chemical)['Date Time'], y=sensor_reading_chemical(group - 1, chemical)['Reading'], color="blue")
+        plot.scatter(x=sensor_reading_chemical(group, chemical)['Date Time'], y=sensor_reading_chemical(group, chemical)['Reading'], color="red")
+        plot.scatter(x=sensor_reading_chemical(group + 1, chemical)['Date Time'], y=sensor_reading_chemical(group + 1, chemical)['Reading'], color="green")
+        output_file('Reading_group' + str(group) + 'for chemical' + str(chemical))
+        show(plot)
+
+plot_serounding_sensor_readings(4)
+plot_serounding_sensor_readings(9)
+plot_serounding_sensor_readings_chemical(9, 'AGOC-3A')
+plot_serounding_sensor_readings_chemical(4, 'Chlorodinine')
