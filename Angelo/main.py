@@ -21,24 +21,23 @@ def hours(date):
 if __name__ == '__main__':
 
 
-    df = pd.read_csv("reduced.csv", delimiter=';')
-    #df['Timestamp'] = pd.Timestamp(df.Timestamp)
+    df = pd.read_csv("Meteorological Data.csv", delimiter=';')
 
-    #df.fillna(method='ffill', inplace=True)
-    # print(df)
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'], yearfirst=True)
+
+    df.groupby(pd.Grouper(freq='M'))
+
+    input(df)
 
     df.interpolate(inplace=True)
-    #print(df['Timestamp'][1])
-    #input(datetime(df['Timestamp'][1]))
-    # print(df)
 
 
     p = figure(x_axis_type='datetime', title='Wind Direction over time')
     p.yaxis.axis_label = 'Sinus value of the incoming angle'
     p.xaxis.axis_label = 'Date Time'
 
-    p.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '04'], y=df['Wind Direction'])
-    p.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '04'], y=df['Wind Speed'], color='red')
+    p.line(x=df['2016-04'], y=df['Wind Direction'])
+    p.line(x=df['2016-04'], y=df['Wind Speed'], color='red')
     show(p)
     p2 = figure(x_axis_type='datetime', title='Wind Direction over time')
     p2.yaxis.axis_label = 'Sinus value of the incoming angle'
