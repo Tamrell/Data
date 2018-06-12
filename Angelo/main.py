@@ -6,54 +6,41 @@ import csv
 from bokeh.plotting import figure, show, output_file
 from bokeh.layouts import row
 
-def interpolate(x, y):
-    '''When given a list with x elements is given, calculates  '''
-    pass
 
-def hours(date):
-    date = date.split(' ')
-    hours = int(date[1][:2])
-    y, m, d = date[0].split('-')
-    hours += int(d) * 24 + int(m) * 200
-    return hours
-
+def interpolate(df):
+    '''interpolates the wind direction of given dataframe'''
+    ndf = df.copy()
+    ndf.interpolate(inplace=True, limit=5)
+    df['Wind Direction Linear'] = np.rad2deg(np.arctan2(ndf['Sin'], ndf['Cos']))
+    print(df.corr())
 
 if __name__ == '__main__':
 
+    df = pd.read_csv("reduced.csv", delimiter=',')
 
-    df = pd.read_csv("Meteorological Data.csv", delimiter=';')
+    # Classify timestamps as datetimes
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+    df.set_index(df['Timestamp'], inplace=True)
 
-    df['Timestamp'] = pd.to_datetime(df['Timestamp'], yearfirst=True)
+    # Multiply wind speed by 50 for a better scale
+    #df['Wind Speed'] = df['Wind Speed'] * 50
 
-    df.groupby(pd.Grouper(freq='M'))
+    # Interpolate missing values
+    interpolate(df)
 
-    input(df)
+    # Plot seperate months for comparison reasons
+    plots = []
+    for month in ['2016-04', '2016-08', '2016-12']:
+        p = figure(x_axis_type='datetime', title='Wind Direction over time in ' + month)
+        p.yaxis.axis_label = 'angle in degrees'
+        p.xaxis.axis_label = 'Date Time'
 
-    df.interpolate(inplace=True)
+        p.line(x=df[month]['Timestamp'], y=df[month]['Wind Direction Linear'])
+        p.line(x=df[month]['Timestamp'], y=df[month]['Wind Speed'], color='red')
 
+        plots.append(p)
+    show(row(plots[0], plots[1], plots[2]))
 
-    p = figure(x_axis_type='datetime', title='Wind Direction over time')
-    p.yaxis.axis_label = 'Sinus value of the incoming angle'
-    p.xaxis.axis_label = 'Date Time'
-
-    p.line(x=df['2016-04'], y=df['Wind Direction'])
-    p.line(x=df['2016-04'], y=df['Wind Speed'], color='red')
-    show(p)
-    p2 = figure(x_axis_type='datetime', title='Wind Direction over time')
-    p2.yaxis.axis_label = 'Sinus value of the incoming angle'
-    p2.xaxis.axis_label = 'Date Time'
-    p2.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '08'], y= df.loc[df['Timestamp'][5:7] == '08']['Wind Direction'])
-
-    p3 = figure(x_axis_type='datetime', title='Wind Direction over time')
-    p3.yaxis.axis_label = 'Sinus value of the incoming angle'
-    p3.xaxis.axis_label = 'Date Time'
-    p3.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '12'], y=df.loc[df['Timestamp'][5:7] == '12']['Wind Direction'])
-
-
-
-
-    output_file('Wind Direction over time')
-    show(row(p, p2, p3))
 
     #plot in sinus(degrees) for better interpretable data
 
