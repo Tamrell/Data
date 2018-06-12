@@ -22,10 +22,10 @@ chemicals = getChemicals(SD)
 sensors = getSensors(SD)
 
 for chemical in chemicals:
-	for i in range(1,len(sensors)+1):
-	    data = pandas.Series(SD.loc[(SD['Monitor'] == i) & (SD['Chemical'] == chemical) & (SD['Reading'] < 100)]['Reading']).values
-	    plt.subplot(int('91%i'%i))
-	    plt.ylabel('%i'%i)
-	    plt.plot(range(len(data)),data)
-	plt.savefig('%s.jpg'%chemical)
-	plt.clf()
+    for i in range(1,len(sensors)+1):
+        data = pandas.Series(SD.loc[(SD['Monitor'] == i) & (SD['Chemical'] == chemical) & (SD['Reading'] < 100)]['Reading']).values
+        plt.subplot(int('91%i'%i))
+        plt.ylabel('%i'%i)
+        plt.plot(range(len(data)),data)
+    plt.savefig('%s.jpg'%chemical)
+    plt.clf()
