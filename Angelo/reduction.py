@@ -16,8 +16,7 @@ def tuples():
         dir = row['Wind Direction']
         speed = row['Wind Speed (m/s)']
         try:
-            geo[time] = [np.sin(np.deg2rad(float(dir))), speed]
-            print(geo[time])
+            geo[time] = [np.sin(np.deg2rad(dir)) / np.cos(np.deg2rad(dir)), speed]
         except:
             print(dir)
 

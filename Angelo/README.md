@@ -9,6 +9,9 @@ these can all be ran by typing into the terminal:
 `python main.py`
 
 
+## notes
+- manual linear regression on points where 300+ -> 100-?
+
 
 ### Invested time in the project
 

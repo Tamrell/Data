@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
 
     df = pd.read_csv("reduced.csv", delimiter=';')
-    df['Timestamp'] = pd.Timestamp(df.Timestamp)
+    #df['Timestamp'] = pd.Timestamp(df.Timestamp)
 
     #df.fillna(method='ffill', inplace=True)
     # print(df)
@@ -36,11 +36,10 @@ if __name__ == '__main__':
     p = figure(x_axis_type='datetime', title='Wind Direction over time')
     p.yaxis.axis_label = 'Sinus value of the incoming angle'
     p.xaxis.axis_label = 'Date Time'
-    input(df['2016-12'])
 
-    p.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '04'], y=df.loc[df['Timestamp'][5:7] == '04']['Wind Direction'])
-
-
+    p.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '04'], y=df['Wind Direction'])
+    p.line(x=[pd.Timestamp(t) for t in df['Timestamp'] if t[5:7] == '04'], y=df['Wind Speed'], color='red')
+    show(p)
     p2 = figure(x_axis_type='datetime', title='Wind Direction over time')
     p2.yaxis.axis_label = 'Sinus value of the incoming angle'
     p2.xaxis.axis_label = 'Date Time'

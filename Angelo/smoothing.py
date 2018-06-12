@@ -11,7 +11,7 @@ def fix_dir():
         time = row['Date']
         dir = row['Wind Direction']
         speed = row['Wind Speed (m/s)']
-        geo[time] = [np.sin(np.deg2rad(dir)), speed]
+        geo[time] = [np.sin(np.deg2rad(dir)/np.cos(np.deg2rad(dir)), speed]
 
     df = pd.read_excel("data/Sensor Data.xlsx", index_col=None)
     chemicals = sorted(list({chemical for chemical in df['Chemical']}))
