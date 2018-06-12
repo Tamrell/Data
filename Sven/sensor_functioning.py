@@ -82,7 +82,27 @@ def plot_serounding_sensor_readings_chemical(group, chemical):
         output_file('Reading_group' + str(group) + 'for chemical' + str(chemical))
         show(plot)
 
-plot_serounding_sensor_readings(4)
-plot_serounding_sensor_readings(9)
-plot_serounding_sensor_readings_chemical(9, 'AGOC-3A')
-plot_serounding_sensor_readings_chemical(4, 'Chlorodinine')
+#plot_serounding_sensor_readings(1)
+#plot_serounding_sensor_readings_chemical(9, 'AGOC-3A')
+
+def plot_sen_red_chem_for_all():
+    sensors = list(range(10))
+    chemicals = ['Methylosmolene', 'Chlorodinine', 'Appluimonia', 'AGOC-3A']
+    for sensor in sensors:
+        for chemical in chemicals:
+            plot_sensor_reading_chemical(sensor, chemical)
+
+#plot_sen_red_chem_for_all()
+
+#print(sensor_reading_chemical(1, 'Chlorodinine').std())
+
+def outliers_sensor_chemical(sensor, chemical, outlier_def):
+    dataframe = sensor_reading_chemical(sensor, chemical)
+    outliers = dataframe[dataframe['Reading'] > outlier_def]
+    outliers.to_excel('outliers_sensor' + str(sensor) + 'chemical' + chemical + '.xlsx')
+
+def outliers_all_sensors_chemical(chemical, outlier_def):
+    for sensor in list(range(10)):
+        outliers_sensor_chemical(sensor, chemical, outlier_def)
+
+outliers_all_sensors_chemical('Appluimonia', 2)
