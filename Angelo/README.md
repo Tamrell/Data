@@ -11,6 +11,9 @@ these can all be ran by typing into the terminal:
 
 ## notes
 - manual linear regression on points where 300+ -> 100-?
+- Cubic spline seems to be unable to fill the last 2 entries.
+- The period from 2016-4-30:22:00 to 2016-08-04-17:00 has been neglected in the interpolation because of unavailable data.
+- apparantly, there are hours missing in the readings
 
 
 ### Invested time in the project
