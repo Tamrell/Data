@@ -20,8 +20,10 @@
 ##### Angelo
 
 > - [x] Grouping data by month: how to?
-> - [ ] Creating standard xlsx or csv file for common data source
-> - [ ] Automatically dividing degrees into cos and sin for interpolation
+> - [x] Creating standard xlsx or csv file for common data source
+> - [x] Automatically dividing degrees into cos and sin in interpolate functions
+> - [ ] handle missing data in readings
+> - [ ] set up the backbone the the report  
 > - [ ] check correlation between Wind Speed and Direction
 > - [ ] check correlation between Wind Speed and time/day
 
