@@ -16,7 +16,7 @@ def tuples():
         dir = row['Wind Direction']
         speed = row['Wind Speed (m/s)']
         try:
-            geo[time] = [dir, np.sin(np.deg2rad(dir)), np.cos(np.deg2rad(dir)), speed]
+            geo[time] = [dir, speed]
         except:
             print(dir)
 
@@ -24,7 +24,7 @@ def tuples():
     chemicals = sorted(list({chemical for chemical in df['Chemical']}))
     monitors = {monitor for monitor in df['Monitor']}
     timestamps = {time for time in df['Date Time ']}
-    header = ['Timestamp', 'Wind Direction', 'Sin', 'Cos' , 'Wind Speed']
+    header = ['Timestamp', 'Wind Direction', 'Wind Speed']
 
     readings = {time: {chem: {m: None
                               for m in monitors}
