@@ -9,10 +9,10 @@
 ### Part 1: Data Cleaning
 
 - [x] Git + readme created
-- [ ] Data cleaning (removing empty rows, columns, elevation.etc)
-- [ ] Linear regression of wind directions using degrees
-- [ ] Philip regression of wind direction over time
-- [ ] Creating a minimalistic map of environment
+- [x] Data cleaning (removing empty rows, columns, elevation.etc)
+- [x] Linear regression of wind directions using degrees
+- [x] Philip regression of wind direction over time
+- [x] Creating a minimalistic map of environment
 - [x] 4 days missing in geometrical data
 
 ### Week 2: Exploratory Data Analysis
@@ -23,7 +23,7 @@
 > - [x] Creating standard xlsx or csv file for common data source
 > - [x] Automatically dividing degrees into cos and sin in interpolate functions
 > - [ ] handle missing data in readings
-> - [ ] set up the backbone the the report  
+> - [x] set up the backbone the the report  
 > - [ ] check correlation between Wind Speed and Direction
 > - [ ] check correlation between Wind Speed and time/day
 

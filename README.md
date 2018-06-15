@@ -1,6 +1,8 @@
 # Data Analysis and Visualisation
-Project folder for DAV 
+Project folder for DAV
 ## VAST Challenge 2017 MC2
+Documentation of the project: https://www.sharelatex.com/read/wqxsrkjgrvpr
+
 ### introductionary text
 
 With the passage of the Mistford Pact of 2010, the town and the Preserve have set into place certain safeguards to help ensure the safety of the people, animals, and vegetation of our area.  When Mistford began growing its manufacturing industry, both the town and the companies wished to ensure an environmentally sound and economically supportive partnership.  With these aims in mind, air sampling sensors have been placed near the town and in the Preserve to monitor air quality.  
@@ -15,7 +17,7 @@ These sensors collect information on several substances of potential concern, in
 - AGOC-3A – New environmental regulations, and consumer demand, have led to the development of low-VOC and zero-VOC solvents. Most manufacturers now use one or more low-VOC substances and Mistford’s plants have wholeheartedly signed on. These new solvents, including AGOC-3A, are less harmful to human and environmental health.
 
 ----
-The Reserve is 
+The Reserve is
 (12 miles)^2
 ![alt text](Angelo/data/MapLargeLabels.jpg "Reserve map")
 
