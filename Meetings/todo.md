@@ -6,7 +6,7 @@
 - [ ] Are the factories actively expelling their chemicals at all times?
 - [ ] Do the factories vary in what composition of chemicals they expel over time?
 
-### Part 1: Data Cleaning
+### Week 1: Data Cleaning
 
 - [x] Git + readme created
 - [x] Data cleaning (removing empty rows, columns, elevation.etc)
@@ -14,6 +14,7 @@
 - [x] Philip regression of wind direction over time
 - [x] Creating a minimalistic map of environment
 - [x] 4 days missing in geometrical data
+- [x] Sometimes a few hours of data are missing in the readings
 
 ### Week 2: Exploratory Data Analysis
 
@@ -24,31 +25,26 @@
 > - [x] Automatically dividing degrees into cos and sin in interpolate functions
 > - [ ] handle missing data in readings
 > - [x] set up the backbone the the report  
-> - [ ] check correlation between Wind Speed and Direction
-> - [ ] check correlation between Wind Speed and time/day
+> - [ ] check correlation between Wind Speed and Direction?
+> - [ ] check correlation between Wind Speed and time/day?
 
 ##### Hidde
 
-> - [ ] task 1
-> - [ ] task 2
-> - [ ] task 3
+> - [ ] Plotting the area
+> - [ ] Checking how to determine whether sensors align with a factory at a given moment (with wind direction)
+> - [ ]
 
 ##### Sven
 
-> - [ ] task 1
-> - [ ] task 2
-> - [ ] task 3
+> - [ ] Check workings of sensors, comparing them to their neighbours.
 
 ##### Philip
 
-> - [ ] task 1
-> - [ ] task 2
-> - [ ] task 3
+> - [ ] Finding out how fast gasses diffuse in athmospheric composition (at 370m Elevation)?
+> - [ ] Creating a gaussian model for gasseous distribution (spread) according to wind speed?
 
-
-- [ ] Dynamic map plot over time
-- [ ] Linear regression over cos and sin compartiments of wind direction
 - [ ] covariance of neighbours vs opposites
+
 
 ### Week 3: In Depth Analysis
 

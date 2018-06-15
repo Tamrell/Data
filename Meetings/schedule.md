@@ -14,13 +14,12 @@ Here will be kept a weekly schedule for the project in order to keep track of:
 - Each year in the date appears to be the same, can we scrap the year from the format?
 - Might be a fun idea to plot the wind currents on top of the map! (if the wind speed varies per area?)
 - It looks like we might deduce the missing wind currents from the changes in measured concentrations of chemicals?
-- We want to make a simplified grid that only contains the factories and the sensors. (coordinates unclear???)
+- We want to make a simplified grid that only contains the factories and the sensors.
 - Redundant Data, we can add columns for each chemical sensor pair?, leaving out the reading, in the following form:
+------
 
-Date Time | Chemical 1 , Sensor 1 | Chem 1, S2... | Chem 2, S1 .etc
---- | --- | --- | ---
-8:00 | 204.5 | 100.3 | 240.2
-8:03 | 205 | 98 | 119
+- Pandas is acting weird (double timestamp but 7 columns? pls halp)
+- Making plots with a slider is not going so well (sadde libie, need halp)
 
 ------
 Reservations in June:
