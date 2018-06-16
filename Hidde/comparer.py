@@ -28,7 +28,7 @@ sensors = {
 #plot map of the city
 def plotMap(factories,sensors):
     output_file('map.html')
-    p = figure(background_fill_color='lightgrey',plot_width=500, plot_height=500)
+    p = figure(background_fill_color='lightgrey',plot_width=750, plot_height=750)
     p.circle([factories[factorie][0] for factorie in factories],[factories[factorie][1] for factorie in factories],size=10, color='navy', alpha=0.5)
     p.square([sensors[sensor][0] for sensor in sensors],[sensors[sensor][1] for sensor in sensors], size=10, color='red',alpha=0.5)
     geo_source = GeoJSONDataSource(geojson=geojson)
@@ -61,7 +61,9 @@ def drawRange(factorie,sensor,angle):
     p.line([factories[factorie][0],xNew],[factories[factorie][1],yNew],line_width=2,color='red')
     return p
 
-show(drawRange('RCT','Sensor5',10))
+# bokeh serv -> updaten    
+
+show(drawRange('RFE','Sensor3',10))
 
 def drawWindDirection(timestamp,factorie):
     p = plotMap(factories,sensors)
