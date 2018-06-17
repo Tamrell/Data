@@ -21,7 +21,9 @@ def sensor_reading_chemical(sensor, chemical):
     return(data_sensor_chem)
 
 def plot_sensor_reading(sensor):
-    plot = figure(x_axis_type = 'datetime')
+    plot = figure(x_axis_type = 'datetime', title = 'Reading sensor ' + str(sensor))
+    plot.xaxis.axis_label = "Time (Date Time)"
+    plot.yaxis.axis_label = "Reading (parts/million)"
     plot.scatter(x=sensor_reading(sensor)['Date Time'], y=sensor_reading(sensor)['Reading'])
     output_file('Reading sensor' + str(sensor) + 'over Time')
     show(plot)
@@ -35,9 +37,9 @@ def plot_sensor_reading_chemical(sensor, chemical):
 def plot_serounding_sensor_readings(group):
     if group == 1:
         plot = figure(x_axis_type = 'datetime')
-        plot.scatter(x=sensor_reading(9)['Date Time'], y=sensor_reading(9)['Reading'], color="blue")
-        plot.scatter(x=sensor_reading(group)['Date Time'], y=sensor_reading(group)['Reading'], color="red")
-        plot.scatter(x=sensor_reading(group + 1)['Date Time'], y=sensor_reading(group + 1)['Reading'], color="green")
+        plot.line(x=sensor_reading(9)['Date Time'], y=sensor_reading(9)['Reading'], color="blue")
+        plot.line(x=sensor_reading(group)['Date Time'], y=sensor_reading(group)['Reading'], color="red")
+        plot.line(x=sensor_reading(group + 1)['Date Time'], y=sensor_reading(group + 1)['Reading'], color="green")
         output_file('sensor_readings_groep' + str(group))
         show(plot)
         group = int(group)
@@ -82,7 +84,7 @@ def plot_serounding_sensor_readings_chemical(group, chemical):
         output_file('Reading_group' + str(group) + 'for chemical' + str(chemical))
         show(plot)
 
-#plot_serounding_sensor_readings(1)
+#plot_serounding_sensor_readings(4)
 #plot_serounding_sensor_readings_chemical(9, 'AGOC-3A')
 
 def plot_sen_red_chem_for_all():
@@ -105,4 +107,5 @@ def outliers_all_sensors_chemical(chemical, outlier_def):
     for sensor in list(range(10)):
         outliers_sensor_chemical(sensor, chemical, outlier_def)
 
-outliers_all_sensors_chemical('Appluimonia', 2)
+#outliers_all_sensors_chemical('Appluimonia', 2)
+plot_sensor_reading(4)
