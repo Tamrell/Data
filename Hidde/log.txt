@@ -1,0 +1,6 @@
+5-07 tot 9-07: bekend worden met de data, eerste plotjes maken en missing values/outliers vinden
+10-07: bekend raken met Bokeh
+11-07: Nieuwe plattegrond gemaakt van het gebied, functies geschreven die lijnen tussen grafieken en sensoren maken en hier een range van + of - x graden omheen aftekenen 
+12-07: oude grafieken omzetten naar Bokeh, begin maken van functie die effect van de windrichting onderzoekt: kijk of er een sensor tov een fabriek in de lijn van de windrichting ligt en of er op dit moment iets gebeurt met de gemeten waardes
+13-07 en 14-07: studeren voor tentamen voor andere studie
+15-07 en 16-07 terug naar de EDA, grafiek voor elke sensor van elk stofje gemaakt, experimenteren met interactief maken van de grafieken. 
