@@ -18,11 +18,14 @@ these can all be ran by typing into the terminal:
 
 ### Invested time in the project
 
-n'th of June | Hours
+n'th of June | what?
 --- | ---
-3 | 11 - 13, 19 - 2
-4 |
-5 |
-6 |
-7 |
-8 | 14 - 01
+3-10 | Data exploration for cleaning.etc
+11 | ??
+12 | ??
+13 | ??
+14 | ??
+15 | ??
+16 | ??
+17 | Fixed "bugs" in interpolation methods, created a program that makes plots of all the combinations of sensors with their readings during wind speeds.
+18 | ??
