@@ -1,32 +1,21 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
-import csv
-
 from bokeh.plotting import figure, show, output_file
 from bokeh.layouts import row
 
 
-def interpolate(df):
-    '''interpolates the wind direction of given dataframe using given args'''
-    ndf = df.copy()
-    ndf.interpolate(inplace=True, limit=5)
-    df['Wind Direction Linear'] = np.rad2deg(np.arctan2(ndf['Sin'], ndf['Cos']))
-    print(df.corr())
 
 if __name__ == '__main__':
 
-    df = pd.read_csv("reduced.csv", delimiter=',')
+    df = pd.read_excel('Complete Data.xlsx', index_col='Timestamp')
 
     # Classify timestamps as datetimes
-    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-    df.set_index(df['Timestamp'], inplace=True)
+    # df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+    # df.set_index(df['Timestamp'], inplace=True)
 
     # Multiply wind speed by 50 for a better scale
     #df['Wind Speed'] = df['Wind Speed'] * 50
-
-    # Interpolate missing values    
-    interpolate(df)
 
     # Plot seperate months for comparison reasons
     plots = []

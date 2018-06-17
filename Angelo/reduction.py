@@ -22,9 +22,11 @@ def tuples():
 
     df = pd.read_excel("data/Sensor Data.xlsx", index_col=None)
     chemicals = sorted(list({chemical for chemical in df['Chemical']}))
-    monitors = {monitor for monitor in df['Monitor']}
+    monitors = sorted(list({monitor for monitor in df['Monitor']}))
     timestamps = {time for time in df['Date Time ']}
-    header = ['Timestamp', 'Wind Direction', 'Wind Speed']
+    header = ['Timestamp'] + [str(chem)[:2] + str(mon)
+              for chem in chemicals
+              for mon in monitors] + ['Wind Direction', 'Wind Speed']
 
     readings = {time: {chem: {m: None
                               for m in monitors}
@@ -48,8 +50,8 @@ def tuples():
                 geinfo = []
             else:
                 geinfo = geo[time]
-            writer.writerow([time] + #[tuple(readings[time][chem].values())
-                            #for chem in readings[time]] +
-                            geinfo)
+            writer.writerow([time] + [readings[time][chem][m]
+                            for chem in chemicals for m in monitors]
+                            + geinfo)
 if __name__ == '__main__':
     tuples()

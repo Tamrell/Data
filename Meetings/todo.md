@@ -32,7 +32,6 @@
 
 > - [ ] Plotting the area
 > - [ ] Checking how to determine whether sensors align with a factory at a given moment (with wind direction)
-> - [ ]
 
 ##### Sven
 
