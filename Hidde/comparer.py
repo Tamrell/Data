@@ -52,8 +52,6 @@ def drawRange(factorie,sensor,angle):
     y = -xOld*numpy.sin(angle*numpy.pi/180) + yOld*numpy.cos(angle*numpy.pi/180)
     xNew = factories[factorie][0]+x
     yNew = factories[factorie][1]+y
-    p.line([factories[factorie][0],xNew],[factories[factorie][1],yNew],line_width=2,color='red')
-    angle = angle*-1
     x = xOld*numpy.cos(angle*numpy.pi/180) + yOld*numpy.sin(angle*numpy.pi/180)
     y = -xOld*numpy.sin(angle*numpy.pi/180) + yOld*numpy.cos(angle*numpy.pi/180)
     xNew = factories[factorie][0]+x
