@@ -108,4 +108,4 @@ def outliers_all_sensors_chemical(chemical, outlier_def):
         outliers_sensor_chemical(sensor, chemical, outlier_def)
 
 #outliers_all_sensors_chemical('Appluimonia', 2)
-plot_sensor_reading(4)
+plot_sensor_reading(3)
