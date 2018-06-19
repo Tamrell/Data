@@ -59,8 +59,7 @@ def drawRange(factorie,sensor,angle):
     p.line([factories[factorie][0],xNew],[factories[factorie][1],yNew],line_width=2,color='red')
     return p
 
-# bokeh serv -> updaten    
-
+# bokeh serv -> updaten   
 show(drawRange('RFE','Sensor3',10))
 
 def drawWindDirection(timestamp,factorie):
@@ -87,7 +86,6 @@ def drawWind(p,timestamp,factorie):
 
 drawWind('p','01-04-2016 00','RFE')
 
-
 #D = pandas.read_excel('Sensor Data.xlsx')
 #MD = pandas.read_excel('Meteorological Data.xlsx')
 
@@ -104,7 +102,6 @@ def getAnglesSF(sensors,factories):
     return angles
 
 angles = getAnglesSF(sensors,factories)
-
 
 def getCoordinates(locations):
     names = []
@@ -135,9 +132,6 @@ for angle in angles:
         y = numpy.arange(y1,y2,0.1)
     print(y)
 
-
-
-
 fig, ax = plt.subplots()
 plt.plot(x,y)
 ax.scatter(xfactories,yfactories,marker='s')
@@ -153,5 +147,4 @@ for i, txt in enumerate(namessensors):
 
 plt.savefig('map.jpg')
 plt.show()
-
 '''
