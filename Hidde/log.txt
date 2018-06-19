@@ -6,3 +6,4 @@
 15-07 en 16-07 terug naar de EDA, grafiek voor elke sensor van elk stofje gemaakt, experimenteren met interactief maken van de grafieken. 
 17-07: grafieken samenvoegen + eerste plot obv windrichting
 18-07 zo algemeen mogelijke functie schrijven voor plotter tov wind + documentatie bijwerken
+
