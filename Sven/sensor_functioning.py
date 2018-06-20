@@ -108,4 +108,28 @@ def outliers_all_sensors_chemical(chemical, outlier_def):
         outliers_sensor_chemical(sensor, chemical, outlier_def)
 
 #outliers_all_sensors_chemical('Appluimonia', 2)
-plot_sensor_reading(3)
+#plot_sensor_reading(3)
+
+def reading_sensor_testperiod(period, sensor):
+    reading_sensor = sensor_reading(sensor)
+    readings = []
+    datetimes = []
+    for index in reading_sensor.index:
+        if reading_sensor['Date Time'][index].month == period:
+            readings.append(reading_sensor['Reading'][index])
+            datetimes.append(reading_sensor['Date Time'][index])
+    reading_date_time = {'Date Time':datetimes,'Reading':readings}
+    data_sensor_testperiod = pd.DataFrame(reading_date_time)
+    return(data_sensor_testperiod)
+
+#print(reading_sensor_testperiod(4, 1))
+
+def calculate_standard_deviation(period, sensor):
+    data_sen_period = reading_sensor_testperiod(period, sensor)
+    return data_sen_period['Reading'].std(0)
+
+
+
+#print(calculate_standard_deviation(4, 5))
+#print(calculate_standard_deviation(8, 5))
+#print(calculate_standard_deviation(12, 5))

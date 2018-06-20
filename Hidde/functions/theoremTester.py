@@ -4,7 +4,7 @@ from bokeh.layouts import column, widgetbox
 from bokeh.plotting import figure
 
 SD = pandas.read_excel('../Final Data/Sensor Data.xlsx')
-MD = pandas.read_excel('../Final Data/Meteorological Interpolated.xlsx')\
+MD = pandas.read_excel('../Final Data/Meteorological Interpolated.xlsx')
 
 factories = {
 	"RFE": [89,27],
