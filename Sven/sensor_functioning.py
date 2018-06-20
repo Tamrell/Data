@@ -124,12 +124,44 @@ def reading_sensor_testperiod(period, sensor):
 
 #print(reading_sensor_testperiod(4, 1))
 
+def strip_readings_above(dataframe, above):
+    readings = []
+    datetimes = []
+    for index in dataframe.index:
+        if dataframe['Reading'][index] < above:
+            readings.append(dataframe['Reading'][index])
+            datetimes.append(dataframe['Date Time'][index])
+    reading_date_time = {'Date Time':datetimes,'Reading':readings}
+    data_sensor_testperiod = pd.DataFrame(reading_date_time)
+    return(data_sensor_testperiod)
+
 def calculate_standard_deviation(period, sensor):
     data_sen_period = reading_sensor_testperiod(period, sensor)
-    return data_sen_period['Reading'].std(0)
+    dataframe = strip_readings_above(data_sen_period, 4)
+    return dataframe['Reading'].std(0)
 
+def calculate_mean(period, sensor):
+    data_sen_period = reading_sensor_testperiod(period, sensor)
+    dataframe = strip_readings_above(data_sen_period, 4)
+    return dataframe['Reading'].mean(0)
 
+def calculate_mean_and_std_for_all():
+    for sensor in range(10):
+        print('standard deviation for sensor ' + str(sensor))
+        print(calculate_standard_deviation(4, sensor))
+        print(calculate_standard_deviation(8, sensor))
+        print(calculate_standard_deviation(12, sensor))
+        print('mean for sensor ' + str(sensor))
+        print(calculate_mean(4, sensor))
+        print(calculate_mean(8, sensor))
+        print(calculate_mean(12, sensor))
 
-#print(calculate_standard_deviation(4, 5))
-#print(calculate_standard_deviation(8, 5))
-#print(calculate_standard_deviation(12, 5))
+calculate_mean_and_std_for_all()
+
+#print(calculate_standard_deviation(4, 3))
+#print(calculate_standard_deviation(8, 3))
+#print(calculate_standard_deviation(12, 3))
+
+#print(calculate_mean(4, 9))
+#print(calculate_mean(8, 9))
+#print(calculate_mean(12, 9))
