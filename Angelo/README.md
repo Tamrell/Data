@@ -21,11 +21,11 @@ these can all be ran by typing into the terminal:
 n'th of June | what?
 --- | ---
 3-10 | Data exploration for cleaning.etc
-11 | ??
-12 | ??
-13 | ??
-14 | ??
+11 | tried to improve upon the data set format
+12 | temporarily gave up improving the data set, started trying to interpolate wind direction linearly
+13 | got the idea to interpolate wind direction according to its independent vectors, finished interpolation methods for Cubic rom-spline and linear interpolation
+14 |
 15 | ??
 16 | ??
-17 | Fixed "bugs" in interpolation methods, created a program that makes plots of all the combinations of sensors with their readings during wind speeds.
-18 | ??
+17 | Fixed "bugs" in interpolation methods, created a program that makes plots of all the combinations of sensors with their readings during wind speeds. also plotted all chems to the wind speed.
+18 | Worked on scatterplots for chemical abundancy, tried to use bokeh with markdown pages
