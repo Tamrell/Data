@@ -22,6 +22,7 @@ chemicals = list(set(pandas.Series(SData['Chemical']).values))
 WindLinear = [float(i) for i in MData['Wind Direction Linear'].values]
 WindSpline = [float(i) for i in MData['Wind Direction Spline'].values]
 
+#get angles between sensors and factories
 def getAngles(factories,sensors):
 	angles = {}
 	for factorie in factories:
@@ -33,6 +34,7 @@ def getAngles(factories,sensors):
 
 angles = getAngles(factories,sensors)
 
+#return timestamps if wind blows from a factory to a sensor
 def compareWDvsAngles(SD,MD,angles,dr):
 	agreements = {}
 	for index, row in MD.iterrows():
@@ -49,6 +51,8 @@ agreements = compareWDvsAngles(SData,MData,angles,10)
 
 
 for factorie in factories:
+	output_file('%s'%factorie)
+
 	plot = figure(plot_width=1500,plot_height=500,title=factorie)
 	plots = []
 	for sensor in sensors:
@@ -81,9 +85,12 @@ for factorie in factories:
 		AGOC_3AMean = []
 		AppluimoniaMean = []
 
+		#loop trough all timestamps
 		for index, row in SData.iterrows():
+			#if wind blows from factorie to sensor
 			if str(row['Timestamp']) in overlap:
 				if row['Monitor'] == int(sensor[-1]):
+					#add reading and timestamp to corresponding list
 					if row['Chemical'] == 'Methylosmolene':
 						Methylosmolene.append(row['Reading'])
 						MethylosmoleneTS.append(row['Timestamp'])
@@ -104,12 +111,11 @@ for factorie in factories:
 						AppluimoniaTS.append(row['Timestamp'])
 						AppluimoniaTS = [i for i in range(len(Appluimonia))]
 						#print(factorie,sensor,row['Timestamp'],row['Chemical'],row['Reading'])
-			if ]
 
 
 		
 
-
+		#plot figures
 		p1.circle(MethylosmoleneTS,Methylosmolene)
 		p1.line([i for i in range(len(Methylosmolene))],[MethylosmoleneMean for i in range(len(Methylosmolene))],color='orange')
 		p2.circle(ChlorodinineTS,Chlorodinine)
