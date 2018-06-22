@@ -38,7 +38,10 @@ def tuples():
         chem = row['Chemical']
         mon = row['Monitor']
         reading = row['Reading']
-        readings[time][chem][mon] = reading
+        if not readings[time][chem][mon]:
+            readings[time][chem][mon] = reading
+        else:
+            print(time, chem, mon)
 
     with open('reduced.csv', 'w') as nf:
         writer = csv.writer(nf, delimiter=',')

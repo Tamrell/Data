@@ -7,6 +7,9 @@ from bokeh.layouts import row, gridplot
 
 from datetime import datetime
 
+names = {'Ap': 'Appluimonia', 'Ch': 'Chlorodinine', 'Me': 'Methylosmolene', 'AG':'AGOC-3A'}
+
+
 def seperate_chems(df, speed_mod):
 
     chemicals = ['Ap', 'Ch', 'Me', 'AG']
@@ -91,7 +94,7 @@ def all_chems3(df):
             means_y = []
             means_x = []
             p = figure(x_axis_type='datetime',
-                       title=chem + ' abundancy at ' + sen, plot_width=300, plot_height=300)
+                       title=chem + ' abundancy at sensor ' + sen, plot_width=300, plot_height=300)
             for month in ['2016-04', '2016-08', '2016-12']:
 
                 means_y.append(df[month][chem + sen].mean())
@@ -142,8 +145,8 @@ def cumulative_Chems2(df):
 
         for month in ['2016-04', '2016-08', '2016-12']:
             p = figure(x_axis_type='datetime',
-                       title='Cumulative abundancy at ' +
-                       sen)#, plot_width=300, plot_height=300)
+                       title='Cumulative abundancy at sensor ' +
+                       sen)#, plot_width=300, plot_he1ight=300)
             for chem in chemicals:
                 p.yaxis.axis_label = 'Cumulative Reading'
                 p.xaxis.axis_label = 'Date Time'
@@ -154,6 +157,80 @@ def cumulative_Chems2(df):
             plots.append(p)
         save(row(*plots))
 
+def cumulative_Chems3(df):
+    chemicals = ['Ap', 'Ch', 'Me', 'AG']
+    color_map = {'Ap': 'green', 'Ch': 'red', 'Me': 'blue', 'AG':'orange'}
+    sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    df = df.cumsum()
+    all_plots = []
+    output_file('EDA/cumulative sums/ALL.html')
+
+    for sen in sensors:
+        plots = []
+        for month in ['2016-04', '2016-08', '2016-12']:
+            p = figure(x_axis_type='datetime',
+                       title='Cumulative abundancy at sensor ' +
+                       sen)#, plot_width=300, plot_he1ight=300)
+            for chem in chemicals:
+                p.yaxis.axis_label = 'Cumulative Reading'
+                p.xaxis.axis_label = 'Date Time'
+                p.line(x=df[month].index,
+                       y=df[month][chem + sen], legend=chem + sen,
+                       color=color_map[chem])
+                p.legend.click_policy="hide"
+            plots.append(p)
+        all_plots.append(plots)
+    save(gridplot(all_plots))
+
+def cumulative_Chems_per_chem(df):
+    chemicals = ['Ap', 'Ch', 'Me', 'AG']
+    color_map = {'1': 'green', '2': 'red', '3': 'blue', '4': 'grey', '5': 'orange', '6': 'yellow', '7': 'purple', '8': 'brown', '9': 'black'}
+    sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    df = df.cumsum()
+    all_plots = []
+    output_file('EDA/cumulative sums/ALL chems.html')
+
+    for chem in chemicals:
+        plots = []
+        for month in ['2016-04', '2016-08', '2016-12']:
+            p = figure(x_axis_type='datetime',
+            title='Cumulative abundancy of ' +
+            names[chem])#, plot_width=300, plot_he1ight=300)
+            for sen in sensors:
+                p.yaxis.axis_label = 'Cumulative Reading'
+                p.xaxis.axis_label = 'Date Time'
+                p.line(x=df[month].index,
+                       y=df[month][chem + sen], legend='Sensor ' + sen,
+                       color=color_map[sen])
+                p.legend.click_policy="hide"
+            plots.append(p)
+        all_plots.append(plots)
+    save(gridplot(all_plots))
+
+def cumulative_Chems_per_chem_monthly_reset_edition(df):
+    chemicals = ['Ap', 'Ch', 'Me', 'AG']
+    color_map = {'1': 'green', '2': 'red', '3': 'blue', '4': 'grey', '5': 'orange', '6': 'yellow', '7': 'purple', '8': 'brown', '9': 'black'}
+    sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    all_plots = []
+    output_file('EDA/cumulative sums/ALL chems monthly.html')
+
+    for chem in chemicals:
+        plots = []
+        for month in ['2016-04', '2016-08', '2016-12']:
+            p = figure(x_axis_type='datetime',
+            title='Cumulative abundancy of ' +
+            names[chem])#, plot_width=300, plot_he1ight=300)
+            for sen in sensors:
+                p.yaxis.axis_label = 'Cumulative Reading'
+                p.xaxis.axis_label = 'Date Time'
+                p.line(x=df[month].index,
+                       y=df[month][chem + sen].cumsum(), legend='Sensor ' + sen,
+                       color=color_map[sen])
+                p.legend.click_policy="hide"
+            plots.append(p)
+        all_plots.append(plots)
+    save(gridplot(all_plots))
+
 
 if __name__ == '__main__':
 
@@ -163,4 +240,4 @@ if __name__ == '__main__':
     sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     speed_mod = 0.15
 
-    cumulative_Chems2(df)
+    cumulative_Chems_per_chem_monthly_reset_edition(df)
