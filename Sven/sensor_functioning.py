@@ -156,7 +156,10 @@ def calculate_mean_and_std_for_all():
         print(calculate_mean(8, sensor))
         print(calculate_mean(12, sensor))
 
-calculate_mean_and_std_for_all()
+
+plot_sensor_reading(8)
+
+#calculate_mean_and_std_for_all()
 
 #print(calculate_standard_deviation(4, 3))
 #print(calculate_standard_deviation(8, 3))
