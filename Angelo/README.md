@@ -24,8 +24,10 @@ n'th of June | what?
 11 | tried to improve upon the data set format
 12 | temporarily gave up improving the data set, started trying to interpolate wind direction linearly
 13 | got the idea to interpolate wind direction according to its independent vectors, finished interpolation methods for Cubic rom-spline and linear interpolation
-14 |
-15 | ??
-16 | ??
+14 | bugfixing
+15 | bugfixing
+16 | more bugfixing
 17 | Fixed "bugs" in interpolation methods, created a program that makes plots of all the combinations of sensors with their readings during wind speeds. also plotted all chems to the wind speed.
 18 | Worked on scatterplots for chemical abundancy, tried to use bokeh with markdown pages
+19 | Made cumulative abundancy plots for the chemicals at each sensor
+20 | Updated the final data
