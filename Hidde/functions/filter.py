@@ -39,6 +39,7 @@ def filterReadings(SData,Mdata):
 				for reading in readings:
 					if ((reading > Xmax) | (reading < Xmin)):
 						outliers.append(reading)
+				
 
 
 
