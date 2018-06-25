@@ -1,0 +1,18 @@
+body {
+  background-image: url("smokestack_background");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  text-align: center;
+  font-family: "Georgia", serif;
+  font-size: 40px;
+  color: white;
+}
+
+.bokeh_plot {
+  height: 650px;
+  width: 650px;
+  align: left;
+}
