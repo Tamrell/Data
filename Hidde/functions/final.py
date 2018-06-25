@@ -1,7 +1,9 @@
-import pandas,math,numpy
+import pandas, math, numpy, time
 from bokeh.layouts import gridplot, row, column
 from bokeh.io import output_file, show
 from bokeh.plotting import figure
+
+start = time.time()
 
 SData = pandas.read_excel('../../Final Data/Sensor Data.xlsx')
 MData = pandas.read_excel('../../Final Data/Meteorological Interpolated.xlsx')
@@ -22,19 +24,27 @@ chemicals = list(set(pandas.Series(SData['Chemical']).values))
 WindLinear = [float(i) for i in MData['Wind Direction Linear'].values]
 WindSpline = [float(i) for i in MData['Wind Direction Spline'].values]
 
-#get angles between sensors and factories
+def getMeanSensorChemical(SD,sensor,chemical):
+	readings = pandas.Series(SD.loc[(SD['Chemical'] == chemical) & (SD['Monitor'] == sensor)]['Reading']).values
+	return numpy.mean(readings)
+
 def getAngles(factories,sensors):
 	angles = {}
 	for factorie in factories:
 		for sensor in sensors:
 			dx = sensors[sensor][0] - factories[factorie][0]
 			dy = sensors[sensor][1] - factories[factorie][1]
-			angles['%s_%s'%(factorie,sensor)] = math.degrees(numpy.arctan2(dy,dx)+(0.5*numpy.pi))
+			angles['%s_%s'%(factorie,sensor)] = math.degrees(numpy.arctan2(dy,dx)) #HOEK INVOEREN
 	return angles
 
 angles = getAngles(factories,sensors)
 
-#return timestamps if wind blows from a factory to a sensor
+for angle in angles:
+	if angles[angle] < 0:
+		angles[angle] = angles[angle]+360
+	print(angle,angles[angle])
+
+
 def compareWDvsAngles(SD,MD,angles,dr):
 	agreements = {}
 	for index, row in MD.iterrows():
@@ -43,24 +53,25 @@ def compareWDvsAngles(SD,MD,angles,dr):
 			ang = angles[angle]
 			ts = row['Timestamp']
 			if rw >= ang-dr and rw <= ang+dr:
-				agreements['%s_%s_%s'%(ts,angle[0:3],angle[4:])] = ang-rw
+				agreements['%s_%s_%s'%(ts,angle[0:3],angle[4:])] = math.degrees(ang-rw)
 				#print(row['Timestamp'],angle,angles[angle],row['Wind Direction Linear'])
 	return agreements	
 
 agreements = compareWDvsAngles(SData,MData,angles,10)
 
 
+
+'''
 for factorie in factories:
 	output_file('%s'%factorie)
-
-	plot = figure(plot_width=1500,plot_height=500,title=factorie)
 	plots = []
+
 	for sensor in sensors:
 
-		p1 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Methylosmolene'))
-		p2 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Chlorodinine'))
-		p3 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'AGOC_3A'))
-		p4 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Appluimonia'))
+		p1 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Methylosmolene'), y_range = (0,5))
+		p2 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Chlorodinine'), y_range = (0,5))
+		p3 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'AGOC_3A'), y_range = (0,5))
+		p4 = figure(plot_width=250,plot_height=250,title='%s_%s'%(sensor,'Appluimonia'), y_range = (0,5))
 
 		overlap = []
 
@@ -75,55 +86,60 @@ for factorie in factories:
 
 		Appluimonia = []
 		AppluimoniaTS = []
-		#find al the timestamps on which the wind blows from factorie to sensor
+
 		for agreement in agreements:
 			if factorie == agreement[20:23] and sensor == agreement[24:]:
-				overlap.append(agreement[0:19])
+				for chemical in chemicals:
+					reading = pandas.Series(SData.loc[(SData['Timestamp'] == numpy.datetime64(agreement[0:19])) & (SData['Chemical'] == chemical) & (SData['Monitor'] == numpy.int64(sensor[-1]))]['Reading']).values
+					if len(reading) == 1:
+						reading = reading[0]
+					#print(reading)
+					if chemical == 'Methylosmolene':
+						#print(reading)
+						Methylosmolene.append(reading)
+						MethylosmoleneTS.append(agreement[0:19])
 
-		MethylosmoleneMean = []
-		ChlorodinineMean = []
-		AGOC_3AMean = []
-		AppluimoniaMean = []
+					elif chemical == 'Chlorodinine':
+						#print(reading)
+						Chlorodinine.append(reading)
+						ChlorodinineTS.append(agreement[0:19])
+					elif chemical == 'AGOC-3A':
+						#print(reading)
+						AGOC_3A.append(reading)
+						AGOC_3ATS.append(agreement[0:19])
+					elif chemical == 'Appluimonia':
+						#print(reading)
+						Appluimonia.append(reading)
+						AppluimoniaTS.append(agreement[0:19])
 
-		#loop trough all timestamps
-		for index, row in SData.iterrows():
-			#if wind blows from factorie to sensor
-			if str(row['Timestamp']) in overlap:
-				if row['Monitor'] == int(sensor[-1]):
-					#add reading and timestamp to corresponding list
-					if row['Chemical'] == 'Methylosmolene':
-						Methylosmolene.append(row['Reading'])
-						MethylosmoleneTS.append(row['Timestamp'])
-						MethylosmoleneTS = [i for i in range(len(Methylosmolene))]
-						#print(factorie,sensor,row['Timestamp'],row['Chemical'],row['Reading'])
-					elif row['Chemical'] == 'Chlorodinine':
-						Chlorodinine.append(row['Reading'])
-						ChlorodinineTS.append(row['Timestamp'])
-						ChlorodinineTS = [i for i in range(len(Chlorodinine))]
-						#print(factorie,sensor,row['Timestamp'],row['Chemical'],row['Reading'])
-					elif row['Chemical'] == 'AGOC-3A':
-						AGOC_3A.append(row['Reading'])
-						AGOC_3ATS.append(row['Timestamp'])
-						AGOC_3ATS = [i for i in range(len(AGOC_3A))]
-						#print(factorie,sensor,row['Timestamp'],row['Chemical'],row['Reading'])
-					elif row['Chemical'] == 'Appluimonia':
-						Appluimonia.append(row['Reading'])
-						AppluimoniaTS.append(row['Timestamp'])
-						AppluimoniaTS = [i for i in range(len(Appluimonia))]
-						#print(factorie,sensor,row['Timestamp'],row['Chemical'],row['Reading'])
+		MethylosmoleneTS = [i for i in range(len(Methylosmolene))]
+		ChlorodinineTS = [i for i in range(len(Chlorodinine))]
+		AGOC_3ATS = [i for i in range(len(AGOC_3A))]
+		AppluimoniaTS = [i for i in range(len(Appluimonia))]
+
+		Methylosmolene_Mean = [numpy.mean(pandas.Series(SData.loc[(SData['Chemical'] == 'Methylosmolene') & (SData['Monitor'] == numpy.int64(sensor[-1]))]['Reading']).values) for i in range(len(Methylosmolene))]
+		Chlorodinine_Mean = [numpy.mean(pandas.Series(SData.loc[(SData['Chemical'] == 'Chlorodinine') & (SData['Monitor'] == numpy.int64(sensor[-1]))]['Reading']).values) for i in range(len(Chlorodinine))]
+		AGOC_3A_Mean = [numpy.mean(pandas.Series(SData.loc[(SData['Chemical'] == 'AGOC-3A') & (SData['Monitor'] == numpy.int64(sensor[-1]))]['Reading']).values) for i in range(len(AGOC_3A))]
+		Appluimonia_Mean = [numpy.mean(pandas.Series(SData.loc[(SData['Chemical'] == 'Appluimonia') & (SData['Monitor'] == numpy.int64(sensor[-1]))]['Reading']).values) for i in range(len(Appluimonia))]
 
 
-		
+		#print('Methylosmolene',len(Methylosmolene),len(MethylosmoleneTS),MethylosmoleneTS)
+		#print('Chlorodinine', len(Chlorodinine), len(ChlorodinineTS))
+		#print('AGOC-3A', len(AGOC_3A),len(AGOC_3ATS))
+		#print('Appluimonia', len(Appluimonia),len(AppluimoniaTS))
 
-		#plot figures
 		p1.circle(MethylosmoleneTS,Methylosmolene)
-		p1.line([i for i in range(len(Methylosmolene))],[MethylosmoleneMean for i in range(len(Methylosmolene))],color='orange')
+		p1.line(MethylosmoleneTS,Appluimonia_Mean, color='orange')
+
 		p2.circle(ChlorodinineTS,Chlorodinine)
-		p2.line([i for i in range(len(Chlorodinine))],[ChlorodinineMean for i in range(len(Chlorodinine))],color='orange')
+		p2.line(ChlorodinineTS,Chlorodinine_Mean, color='orange')
+
 		p3.circle(AGOC_3ATS,AGOC_3A)
-		p3.line([i for i in range(len(AGOC_3A))],[AGOC_3AMean for i in range(len(AGOC_3A))],color='orange')
+		p3.line(AGOC_3ATS,AGOC_3A_Mean, color='orange')
+
 		p4.circle(AppluimoniaTS,Appluimonia)
-		p4.line([i for i in range(len(Appluimonia))],[AppluimoniaMean for i in range(len(Appluimonia))],color='orange')
+		p4.line(AppluimoniaTS,Appluimonia_Mean, color='orange')
+
 		plots.append([p1,p2,p3,p4])
 
 	grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title=factorie)
@@ -131,109 +147,11 @@ for factorie in factories:
 	show(grid)
 
 
+					
+					#print(agreement[0:19],factorie,sensor,chemical,reading)
 
 
+end = time.time()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(end-start)
 '''
-for value in WindLinear:
-	print(type(value))
-	print(type(numpy.float(142)))
-
-Base = range(len(WindLinear))
-
-plot = figure(width=1500, plot_height=500, title=None)
-
-plot.line(Base,WindLinear,color='blue',legend='Linear')
-plot.line(Base,WindSpline,color='red',legend='Spline')
-plot.legend.location = "top_left"
-plot.legend.click_policy="hide"
-show(plot)
-
-for i in range(1,len(WindLinear)):
-	if abs(WindLinear[i-1]-WindLinear[i]) > 100:
-		WindLinearNew.append(WindLinear[i]+360)
-	else:
-		WindLinearNew.append(WindLinear[i])
-
-for i in range(len(WindLinear)):
-	print(WindLinear[i],WindLinearNew[i])
-
-WindLinear = WindLinearNew
-
-
-def getAngles(factories,sensors):
-	angles = {}
-	for factorie in factories:
-		for sensor in sensors:
-			dx = sensors[sensor][0] - factories[factorie][0]
-			dy = sensors[sensor][1] - factories[factorie][1]
-			angles['%s_%s'%(factorie,sensor)] = math.degrees(numpy.arctan2(dy,dx)+(0.5*numpy.pi))
-	return angles
-
-angles = getAngles(factories,sensors)
-
-def compareWDvsAngles(SD,MD,angles,dr):
-	agreements = {}
-	for index, row in MD.iterrows():
-		for angle in angles:
-			rw = row['Wind Direction Linear']
-			ang = angles[angle]
-			ts = row['Timestamp']
-			if rw >= ang-dr and rw <= ang+dr:
-				agreements['%s_%s_%s'%(ts,angle[0:3],angle[4:])] = ang-rw
-				#print(row['Timestamp'],angle,angles[angle],row['Wind Direction Linear'])
-	return agreements		
-
-agreements = compareWDvsAngles(SData,MData,angles,10)
-
-from bokeh.io import output_file, show
-from bokeh.layouts import gridplot
-from bokeh.palettes import Viridis3
-from bokeh.plotting import figure
-
-output_file("layout_grid.html")
-
-x = list(range(11))
-y0 = x
-y1 = [10 - i for i in x]
-y2 = [abs(i - 5) for i in x]
-y3 = [i**2 for i in x]
-
-# create three plots
-p1 = figure(plot_width=250, plot_height=250, title=None)
-p1.circle(x, y0, size=10, color=Viridis3[0])
-p2 = figure(plot_width=250, plot_height=250, title=None)
-p2.triangle(x, y1, size=10, color=Viridis3[1])
-p3 = figure(plot_width=250, plot_height=250, title=None)
-p3.square(x, y2, size=10, color=Viridis3[2])
-p4 = figure(plot_width=250, plot_height=250, title=None)
-p4.circle(x,y3,size=10,color=Viridis3[1])
-
-# make a grid
-grid = gridplot([[p1, p2, p4], [None, p3, p4]])
-
-# show the results
-show(grid)'''
