@@ -4,6 +4,13 @@ body {
   background-size: cover;
 }
 
+.header {
+  height: 150px;
+  width: 100%;
+  color:inherit;
+  text-align: center;
+}
+
 .title {
   text-align: center;
   font-family: "Georgia", serif;
@@ -11,8 +18,15 @@ body {
   color: white;
 }
 
+.text1 {
+  text-align: center;
+  font-family: "Georgia", serif;
+  font-size: 20px;
+  color: white;
+}
+
 .bokeh_plot {
-  height: 650px;
-  width: 650px;
-  align: left;
+  height: 750px;
+  width: 50%;
+
 }

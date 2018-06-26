@@ -8,17 +8,31 @@
   </head>
 
   <body>
-    <p class="title"> Analysis of Chemical Emissions </p>
+    <div class="header">
+      <p class="title"> Analysis of Chemical Emissions </p>
+      <a href="#plot1">plot1</a>
+      <a href="#plot2">plot2</a>
+    </div>
     <center>
 
       <!-- Hey gebruiker: hieronder kan je bokeh plots neerzetten:
       EERST: embed je je plot, met de <embed> tag,
-      zorg dat je class bokeh_plot heet zodat de juiste css style erop komt,
-      sluit af met een </center> tag.-->
-
-      <embed class="bokeh_plot" src="bokeh_plots/TestBokehPlot">
-      <embed class="bokeh_plot" src="bokeh_plots/TestBokehPlot">
-
+      zorg dat je class bokeh_plot heet zodat de juiste css style erop komt.-->
+      <div id="plot1" class="box1">
+        <a href="bokeh_plots/TestBokehPlot">Full screen plot</a>
+        <p class="text1">
+          Lorem ipsum dolor sit amet,
+          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip
+          ex ea commodo consequat.
+        </p>
+        <embed class="bokeh_plot" src="bokeh_plots/TestBokehPlot">
+      </div>
+      <div id="plot2" class="box1">
+        <p class="text1">Hier zien we een kapot mooie plot jong!</p>
+        <embed class="bokeh_plot" src="bokeh_plots/Test2BokehPlot.html">
+      </div>
     </center>
   </body>
 
