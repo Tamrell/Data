@@ -141,7 +141,7 @@ def giveVars(windvector,path):
     return [downwind,azimuth]
 
 def payup(meting,downwind,azimuth,std_az):
-    exponent= (downwind * azimuth)/(2*std_az)
+    exponent= (downwind**2 * azimuth**2)/(2*std_az**2)
     return (meting*math.pi*std_az*math.e**(exponent))
 
     april = (df[datetime(2016,4,1,0):datetime(2016,4,30,23)])
@@ -197,10 +197,22 @@ for stof in chemicals:
         [downwind2,azimuth2] = giveVars(windvector,path2)
         [downwind3,azimuth3] = giveVars(windvector,path3)
         [downwind4,azimuth4] = giveVars(windvector,path4)
-        cost1 = payup(meting,downwind1,azimuth1,std_az)
-        cost2 = payup(meting,downwind2,azimuth2,std_az)
-        cost3 = payup(meting,downwind3,azimuth3,std_az)
-        cost4 = payup(meting,downwind4,azimuth4,std_az)
+        try:
+            cost1 = payup(meting,downwind1,azimuth1,std_az)
+        except:
+            cost1 = "x"
+        try:
+            cost2 = payup(meting,downwind2,azimuth2,std_az)
+        except:
+            cost2 = "x"
+        try:
+            cost3 = payup(meting,downwind3,azimuth3,std_az)
+        except:
+            cost3 = "x"
+        try:
+            cost4 = payup(meting,downwind4,azimuth4,std_az)
+        except:
+            cost4 = "x"
         list1.append(cost1)
         list2.append(cost2)
         list3.append(cost3)
@@ -221,12 +233,34 @@ for i in range(len(ueberlist_road)):
     cuz=[]
     probs=[]
     for j in range(len(ueberlist_road[i])):
-        check = [roady[j],kasi[j],radi[j],indi[j]]
-        likeli = 1/roady[j] + 1/kasi[j] + 1/radi[j] + 1/indi[j]
-        val, idx = min((val, idx) for (idx, val) in enumerate(check))
-        prob = (1/val) / likeli
-        guys = ["Road","Kas","Radi","Indi"]
-        cuzza = guys[idx]
+        czech = [roady[j],kasi[j],radi[j],indi[j]]
+        check = [x for x in czech if not isinstance(x, str)]
+
+        if roady[j] == "x":
+            ro = 0
+        else :
+            ro = 1/roady[j]
+        if kasi[j] == "x":
+            k = 0
+        else :
+            k = 1/kasi[j]
+        if radi[j] == "x":
+            ra = 0
+        else :
+            ra = 1/radi[j]
+        if indi[j] == "x":
+            ii = 0
+        else :
+            ii = 1/indi[j]
+        likeli = ro + k + ra + ii
+        if check == [] :
+            prob = 0
+            cuzza = "dunno"
+        else :
+            val, idx = min((val, idx) for (idx, val) in enumerate(check))
+            prob = (1/val) / likeli
+            guys = ["Road","Kas","Radi","Indi"]
+            cuzza = guys[idx]
         cuz.append(cuzza)
         probs.append(prob)
     verantwoordelijke.append(cuz)
@@ -243,3 +277,288 @@ for stof in chemicals:
 
 Causa.to_csv('Who_Out.csv', index=False, header=False)
 Probs.to_csv('Prob_Out.csv', index=False, header=False)
+
+
+
+Road_AG = []
+Road_Ap = []
+Road_Ch = []
+Road_Me = []
+Kas_AG = []
+Kas_Ap = []
+Kas_Ch = []
+Kas_Me = []
+Radi_AG = []
+Radi_Ap = []
+Radi_Ch = []
+Radi_Me = []
+Indi_AG = []
+Indi_Ap = []
+Indi_Ch = []
+Indi_Me = []
+
+count = -1
+for stof in chemicals:
+    count +=1
+    guys = Causa[stof]
+    meting = df[stof]
+    probs = Probs[stof]
+    for i in range(len(Causa[stof])):
+        if count < 9 :
+            if guys[i] == "Road" :
+                if probs[i] > 0.5 :
+                    prob = math.sqrt(probs[i])
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Road_AG.append(weight)
+                    Road_AG.append(prob)
+            if guys[i] == "Kas" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Kas_AG.append(weight)
+                    Kas_AG.append(math.sqrt(probs[i]))
+            if guys[i] == "Radi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Radi_AG.append(weight)
+                    Radi_AG.append(math.sqrt(probs[i]))
+            if guys[i] == "Indi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Indi_AG.append(weight)
+                    Indi_AG.append(math.sqrt(probs[i]))
+        if count >= 9 & count < 18:
+            if guys[i] == "Road" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Road_ap.append(weight)
+                    Road_ap.append(math.sqrt(probs[i]))
+            if guys[i] == "Kas" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Kas_ap.append(weight)
+                    Kas_ap.append(math.sqrt(probs[i]))
+            if guys[i] == "Radi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Radi_ap.append(weight)
+                    Radi_ap.append(math.sqrt(probs[i]))
+            if guys[i] == "Indi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Indi_ap.append(weight)
+                    Indi_ap.append(math.sqrt(probs[i]))
+        if count >= 18 & count < 27:
+            if guys[i] == "Road" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Road_Ch.append(weight)
+                    Road_Ch.append(math.sqrt(probs[i]))
+            if guys[i] == "Kas" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Kas_Ch.append(weight)
+                    Kas_Ch.append(math.sqrt(probs[i]))
+            if guys[i] == "Radi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Radi_Ch.append(weight)
+                    Radi_Ch.append(math.sqrt(probs[i]))
+            if guys[i] == "Indi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Indi_Ch.append(weight)
+                    Indi_Ch.append(math.sqrt(probs[i]))
+        if count >= 27:
+            if guys[i] == "Road" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Road_Me.append(weight)
+                    Road_Me.append(math.sqrt(probs[i]))
+            if guys[i] == "Kas" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Kas_Me.append(weight)
+                    Kas_Me.append(math.sqrt(probs[i]))
+            if guys[i] == "Radi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Radi_Me.append(weight)
+                    Radi_Me.append(math.sqrt(probs[i]))
+            if guys[i] == "Indi" :
+                if probs[i] > 0.5 :
+                    weight = meting[i] * math.sqrt(probs[i])
+                    Indi_Me.append(weight)
+                    Indi_Me.append(math.sqrt(probs[i])
+
+emssionweights_Road_Ag = []
+probabilities_Road_Ag = []
+for i in range(len(Road_AG)):
+    if i % 2:
+        emissionweights.append(Road_AG[i])
+    else :
+        probabilities.append(Road_AG[i])
+
+emssionweights_Road_Ap = []
+probabilities_Road_Ap = []
+for i in range(len(Road_Ap)):
+    if i % 2:
+        emissionweights.append(Road_Ap[i])
+    else :
+        probabilities.append(Road_Ap[i])
+
+emssionweights_Road_Ch = []
+probabilities_Road_Ch = []
+for i in range(len(Road_Ch)):
+    if i % 2:
+        emissionweights.append(Road_Ch[i])
+    else :
+        probabilities.append(Road_Ch[i])
+
+emssionweights_Road_Me = []
+probabilities_Road_Me = []
+for i in range(len(Road_Me)):
+    if i % 2:
+        emissionweights.append(Road_Me)
+    else :
+        probabilities.append(Road_Me)
+
+
+emssionweights_Kas_AG = []
+probabilities_Kas_AG = []
+for i in range(len(Kas_AG)):
+    if i % 2:
+        emissionweights.append(Kas_AG[i])
+    else :
+        probabilities.append(Kas_AG[i])
+
+emssionweights_Kas_Ap = []
+probabilities_Kas_Ap = []
+for i in range(len(Kas_Ap)):
+    if i % 2:
+        emissionweights.append(Kas_Ap[i])
+    else :
+        probabilities.append(Kas_Ap[i])
+
+emssionweights_Kas_Ch = []
+probabilities_Kas_Ch = []
+for i in range(len(Kas_Ch)):
+    if i % 2:
+        emissionweights.append(Kas_Ch[i])
+    else :
+        probabilities.append(Kas_Ch[i])
+
+emssionweights_Kas_Me = []
+probabilities_Kas_Me = []
+for i in range(len(Kas_Me)):
+    if i % 2:
+        emissionweights.append(Kas_Me)
+    else :
+        probabilities.append(Kas_Me)
+
+emssionweights_Radi_AG = []
+probabilities_Radi_AG = []
+for i in range(len(Radi_AG)):
+    if i % 2:
+        emissionweights.append(Radi_AG[i])
+    else :
+        probabilities.append(Radi_AG[i])
+
+emssionweights_Radi_Ap = []
+probabilities_Radi_Ap = []
+for i in range(len(Radi_Ap)):
+    if i % 2:
+        emissionweights.append(Radi_Ap[i])
+    else :
+        probabilities.append(Radi_Ap[i])
+
+emssionweights_Radi_Ch = []
+probabilities_Radi_Ch = []
+for i in range(len(Radi_Ch)):
+    if i % 2:
+        emissionweights.append(Radi_Ch[i])
+    else :
+        probabilities.append(Radi_Ch[i])
+
+emssionweights_Radi_Me = []
+probabilities_Radi_Me = []
+for i in range(len(Radi_Me)):
+    if i % 2:
+        emissionweights.append(Radi_Me)
+    else :
+        probabilities.append(Radi_Me)
+
+emssionweights_Indi_AG = []
+probabilities_Indi_AG = []
+for i in range(len(Indi_AG)):
+    if i % 2:
+        emissionweights.append(Indi_AG[i])
+    else :
+        probabilities.append(Indi_AG[i])
+
+emssionweights_Indi_Ap = []
+probabilities_Indi_Ap = []
+for i in range(len(Indi_Ap)):
+    if i % 2:
+        emissionweights.append(Indi_Ap[i])
+    else :
+        probabilities.append(Indi_Ap[i])
+
+emssionweights_Indi_Ch = []
+probabilities_Indi_Ch = []
+for i in range(len(Indi_Ch)):
+    if i % 2:
+        emissionweights.append(Indi_Ch[i])
+    else :
+        probabilities.append(Indi_Ch[i])
+
+emssionweights_Indi_Me = []
+probabilities_Indi_Me = []
+for i in range(len(Indi_Me)):
+    if i % 2:
+        emissionweights.append(Indi_Me)
+    else :
+        probabilities.append(Indi_Me)
+
+Road_AG = [sum(emssionweights_Road_AG),mean(probabilities_Road_AG)]
+Road_Ap = [sum(emssionweights_Road_Ap),mean(probabilities_Road_Ap)]
+Road_Ch = [sum(emssionweights_Road_Ch),mean(probabilities_Road_Ch)]
+Road_Me = [sum(emssionweights_Road_Me),mean(probabilities_Road_Me)]
+Kas_AG = [sum(emssionweights_Kas_AG),mean(probabilities_Kas_AG)]
+Kas_Ap = [sum(emssionweights_Kas_Ap),mean(probabilities_Kas_Ap)]
+Kas_Ch = [sum(emssionweights_Kas_Ch),mean(probabilities_Kas_Ch)]
+Kas_Me = [sum(emssionweights_Kas_Me),mean(probabilities_Kas_Me)]
+Radi_AG = [sum(emssionweights_Radi_AG),mean(probabilities_Radi_AG)]
+Radi_Ap = [sum(emssionweights_Radi_Ap),mean(probabilities_Radi_Ap)]
+Radi_Ch = [sum(emssionweights_Radi_Ch),mean(probabilities_Radi_Ch)]
+Radi_Me = [sum(emssionweights_Radi_Me),mean(probabilities_Radi_Me)]
+Indi_AG = [sum(emssionweights_Indi_AG),mean(probabilities_Indi_AG)]
+Indi_Ap = [sum(emssionweights_Indi_Ap),mean(probabilities_Indi_Ap)]
+Indi_Ch = [sum(emssionweights_Indi_Ch),mean(probabilities_Indi_Ch)]
+Indi_Me = [sum(emssionweights_Indi_Me),mean(probabilities_Indi_Me)]
+
+
+
+results = pd.DataFrame()
+
+results["Road_AG"] = Road_AG
+results["Road_Ap"] = Road_Ap
+results["Road_Ch"] = Road_Ch
+results["Road_Me"] = Road_Me
+
+results["Kas_AG"] = Kas_AG
+results["Kas_Ap"] = Kas_Ap
+results["Kas_Ch"] = Kas_Ch
+results["Kas_Me"] = Kas_Me
+
+results["Radi_AG"] = Radi_AG
+results["Radi_Ap"] = Radi_Ap
+results["Radi_Ch"] = Radi_Ch
+results["Radi_Me"] = Radi_Me
+
+results["Indi_AG"] = Indi_AG
+results["Indi_Ap"] = Indi_Ap
+results["Indi_Ch"] = Indi_Ch
+results["Indi_Me"] = Indi_Me
+
+
+results.to_csv('ResultsUncensored.csv')
