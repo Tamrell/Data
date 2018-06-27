@@ -57,6 +57,7 @@ def all_chems(df):
     p.legend.click_policy="hide"
     save(p)
 
+
 def all_chems2(df):
     '''Scatter-plots all chemicals in 4 bokeh plots aligned in a row.'''
     # Define data set/initialize variables
@@ -108,6 +109,7 @@ def all_chems3(df):
                    legend='mean' ,color='black')
             plots.append(p)
         save(gridplot(plots[:3], plots[3:6], plots[6:]))
+
 
 def cumulative_Chems(df):
 
@@ -219,7 +221,7 @@ def cumulative_Chems_per_chem_monthly_reset_edition(df):
         for month in ['2016-04', '2016-08', '2016-12']:
             p = figure(x_axis_type='datetime',
             title='Cumulative abundancy of ' +
-            names[chem])#, plot_width=300, plot_he1ight=300)
+            names[chem], y_range=(0, 1500))#, plot_width=300, plot_he1ight=300)
             for sen in sensors:
                 p.yaxis.axis_label = 'Cumulative Reading'
                 p.xaxis.axis_label = 'Date Time'

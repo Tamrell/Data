@@ -19,7 +19,7 @@ these can all be ran by typing into the terminal:
 ### Invested time in the project
 
 n'th of June | what?
---- | ---
+--- | ---   
 3-10 | Data exploration for cleaning.etc
 11 | tried to improve upon the data set format
 12 | temporarily gave up improving the data set, started trying to interpolate wind direction linearly
@@ -31,3 +31,10 @@ n'th of June | what?
 18 | Worked on scatterplots for chemical abundancy, tried to use bokeh with markdown pages
 19 | Made cumulative abundancy plots for the chemicals at each sensor
 20 | Updated the final data
+21 | Worked on the report and plots
+22 | Worked on the report
+23 | --
+24 | made different correction functions for sensor 4
+25 | explored github pages and possibilities therein
+26 | worked on the report, exploring different visualisations for data
+27 |
