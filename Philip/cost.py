@@ -242,8 +242,6 @@ for stof in chemicals:
     Causa[stof]= verantwoordelijke[count]
     Probs[stof]= waarschijnlijkheden[count]
 
-Causa.to_csv('Who_Out.csv', index=False, header=False)
-Probs.to_csv('Prob_Out.csv', index=False, header=False)
 
 
 
@@ -357,151 +355,169 @@ for stof in chemicals:
                     Indi_Me.append(weight)
                     Indi_Me.append(math.sqrt(probs[i]))
 
-emssionweights_Road_Ag = []
-probabilities_Road_Ag = []
+emissionweights_Road_AG = []
+probabilities_Road_AG = []
 for i in range(len(Road_AG)):
     if i % 2:
-        emissionweights.append(Road_AG[i])
+        emissionweights_Road_AG.append(Road_AG[i])
     else :
-        probabilities.append(Road_AG[i])
+        probabilities_Road_AG.append(Road_AG[i])
 
-emssionweights_Road_Ap = []
+emissionweights_Road_Ap = []
 probabilities_Road_Ap = []
 for i in range(len(Road_Ap)):
     if i % 2:
-        emissionweights.append(Road_Ap[i])
+        emissionweights_Road_Ap.append(Road_Ap[i])
     else :
-        probabilities.append(Road_Ap[i])
+        probabilities_Road_Ap.append(Road_Ap[i])
 
-emssionweights_Road_Ch = []
+emissionweights_Road_Ch = []
 probabilities_Road_Ch = []
 for i in range(len(Road_Ch)):
     if i % 2:
-        emissionweights.append(Road_Ch[i])
+        emissionweights_Road_Ch.append(Road_Ch[i])
     else :
-        probabilities.append(Road_Ch[i])
+        probabilities_Road_Ch.append(Road_Ch[i])
 
-emssionweights_Road_Me = []
+emissionweights_Road_Me = []
 probabilities_Road_Me = []
 for i in range(len(Road_Me)):
     if i % 2:
-        emissionweights.append(Road_Me)
+        emissionweights_Road_Me.append(Road_Me)
     else :
-        probabilities.append(Road_Me)
+        probabilities_Road_Me.append(Road_Me)
 
 
-emssionweights_Kas_AG = []
+emissionweights_Kas_AG = []
 probabilities_Kas_AG = []
 for i in range(len(Kas_AG)):
     if i % 2:
-        emissionweights.append(Kas_AG[i])
+        emissionweights_Kas_AG.append(Kas_AG[i])
     else :
-        probabilities.append(Kas_AG[i])
+        probabilities_Kas_AG.append(Kas_AG[i])
 
-emssionweights_Kas_Ap = []
+emissionweights_Kas_Ap = []
 probabilities_Kas_Ap = []
 for i in range(len(Kas_Ap)):
     if i % 2:
-        emissionweights.append(Kas_Ap[i])
+        emissionweights_Kas_Ap.append(Kas_Ap[i])
     else :
-        probabilities.append(Kas_Ap[i])
+        probabilities_Kas_Ap.append(Kas_Ap[i])
 
-emssionweights_Kas_Ch = []
+emissionweights_Kas_Ch = []
 probabilities_Kas_Ch = []
 for i in range(len(Kas_Ch)):
     if i % 2:
-        emissionweights.append(Kas_Ch[i])
+        emissionweights_Kas_Ch.append(Kas_Ch[i])
     else :
-        probabilities.append(Kas_Ch[i])
+        probabilities_Kas_Ch.append(Kas_Ch[i])
 
-emssionweights_Kas_Me = []
+emissionweights_Kas_Me = []
 probabilities_Kas_Me = []
 for i in range(len(Kas_Me)):
     if i % 2:
-        emissionweights.append(Kas_Me)
+        emissionweights_Kas_Me.append(Kas_Me)
     else :
-        probabilities.append(Kas_Me)
+        probabilities_Kas_Me.append(Kas_Me)
 
-emssionweights_Radi_AG = []
+emissionweights_Radi_AG = []
 probabilities_Radi_AG = []
 for i in range(len(Radi_AG)):
     if i % 2:
-        emissionweights.append(Radi_AG[i])
+        emissionweights_Radi_AG.append(Radi_AG[i])
     else :
-        probabilities.append(Radi_AG[i])
+        probabilities_Radi_AG.append(Radi_AG[i])
 
-emssionweights_Radi_Ap = []
+emissionweights_Radi_Ap = []
 probabilities_Radi_Ap = []
 for i in range(len(Radi_Ap)):
     if i % 2:
-        emissionweights.append(Radi_Ap[i])
+        emissionweights_Radi_Ap.append(Radi_Ap[i])
     else :
-        probabilities.append(Radi_Ap[i])
+        probabilities_Radi_Ap.append(Radi_Ap[i])
 
-emssionweights_Radi_Ch = []
+emissionweights_Radi_Ch = []
 probabilities_Radi_Ch = []
 for i in range(len(Radi_Ch)):
     if i % 2:
-        emissionweights.append(Radi_Ch[i])
+        emissionweights_Radi_Ch.append(Radi_Ch[i])
     else :
-        probabilities.append(Radi_Ch[i])
+        probabilities_Radi_Ch.append(Radi_Ch[i])
 
-emssionweights_Radi_Me = []
+emissionweights_Radi_Me = []
 probabilities_Radi_Me = []
 for i in range(len(Radi_Me)):
     if i % 2:
-        emissionweights.append(Radi_Me)
+        emissionweights_Radi_Me.append(Radi_Me)
     else :
-        probabilities.append(Radi_Me)
+        probabilities_Radi_Me.append(Radi_Me)
 
-emssionweights_Indi_AG = []
+emissionweights_Indi_AG = []
 probabilities_Indi_AG = []
 for i in range(len(Indi_AG)):
     if i % 2:
-        emissionweights.append(Indi_AG[i])
+        emissionweights_Indi_AG.append(Indi_AG[i])
     else :
-        probabilities.append(Indi_AG[i])
+        probabilities_Indi_AG.append(Indi_AG[i])
 
-emssionweights_Indi_Ap = []
+emissionweights_Indi_Ap = []
 probabilities_Indi_Ap = []
 for i in range(len(Indi_Ap)):
     if i % 2:
-        emissionweights.append(Indi_Ap[i])
+        emissionweights_Indi_Ap.append(Indi_Ap[i])
     else :
-        probabilities.append(Indi_Ap[i])
+        probabilities_Indi_Ap.append(Indi_Ap[i])
 
-emssionweights_Indi_Ch = []
+emissionweights_Indi_Ch = []
 probabilities_Indi_Ch = []
 for i in range(len(Indi_Ch)):
     if i % 2:
-        emissionweights.append(Indi_Ch[i])
+        emissionweights_Indi_Ch.append(Indi_Ch[i])
     else :
-        probabilities.append(Indi_Ch[i])
+        probabilities_Indi_Ch.append(Indi_Ch[i])
 
-emssionweights_Indi_Me = []
+emissionweights_Indi_Me = []
 probabilities_Indi_Me = []
 for i in range(len(Indi_Me)):
     if i % 2:
-        emissionweights.append(Indi_Me)
+        emissionweights_Indi_Me.append(Indi_Me)
     else :
-        probabilities.append(Indi_Me)
+        probabilities_Indi_Me.append(Indi_Me)
 
-Road_AG = [sum(emssionweights_Road_AG),mean(probabilities_Road_AG)]
-Road_Ap = [sum(emssionweights_Road_Ap),mean(probabilities_Road_Ap)]
-Road_Ch = [sum(emssionweights_Road_Ch),mean(probabilities_Road_Ch)]
-Road_Me = [sum(emssionweights_Road_Me),mean(probabilities_Road_Me)]
-Kas_AG = [sum(emssionweights_Kas_AG),mean(probabilities_Kas_AG)]
-Kas_Ap = [sum(emssionweights_Kas_Ap),mean(probabilities_Kas_Ap)]
-Kas_Ch = [sum(emssionweights_Kas_Ch),mean(probabilities_Kas_Ch)]
-Kas_Me = [sum(emssionweights_Kas_Me),mean(probabilities_Kas_Me)]
-Radi_AG = [sum(emssionweights_Radi_AG),mean(probabilities_Radi_AG)]
-Radi_Ap = [sum(emssionweights_Radi_Ap),mean(probabilities_Radi_Ap)]
-Radi_Ch = [sum(emssionweights_Radi_Ch),mean(probabilities_Radi_Ch)]
-Radi_Me = [sum(emssionweights_Radi_Me),mean(probabilities_Radi_Me)]
-Indi_AG = [sum(emssionweights_Indi_AG),mean(probabilities_Indi_AG)]
-Indi_Ap = [sum(emssionweights_Indi_Ap),mean(probabilities_Indi_Ap)]
-Indi_Ch = [sum(emssionweights_Indi_Ch),mean(probabilities_Indi_Ch)]
-Indi_Me = [sum(emssionweights_Indi_Me),mean(probabilities_Indi_Me)]
+a= sum(emissionweights_Road_AG)
+b= sum(probabilities_Road_AG)/len(probabilities_Road_AG)
+c,d = sum(emissionweights_Road_Ap),sum(probabilities_Road_Ap)/len(probabilities_Road_Ap)
+e,f  = sum(emissionweights_Road_Ch),sum(probabilities_Road_Ch)/len(probabilities_Road_Ch)
+
+i, j = sum(emissionweights_Kas_AG),sum(probabilities_Kas_AG)/len(probabilities_Kas_AG)
+l, m = sum(emissionweights_Kas_Ap),sum(probabilities_Kas_Ap)/len(probabilities_Kas_Ap)
+n, o = sum(emissionweights_Kas_Ch),sum(probabilities_Kas_Ch)/len(probabilities_Kas_Ch)
+p, q = "?","?"
+r, s = sum(emissionweights_Radi_AG),sum(probabilities_Radi_AG)/len(probabilities_Radi_AG)
+t, u = sum(emissionweights_Radi_Ap),sum(probabilities_Radi_Ap)/len(probabilities_Radi_Ap)
+v, w = sum(emissionweights_Radi_Ch),sum(probabilities_Radi_Ch)/len(probabilities_Radi_Ch)
+x,y = "?","?"
+aa, ab = sum(emissionweights_Indi_AG),sum(probabilities_Indi_AG)/len(probabilities_Indi_AG)
+bb, bc = sum(emissionweights_Indi_Ap),sum(probabilities_Indi_Ap)/len(probabilities_Indi_Ap)
+cc, cd = sum(emissionweights_Indi_Ch),sum(probabilities_Indi_Ch)/len(probabilities_Indi_Ch)
+dd, de = "?","?"
+
+Road_AG = [a,b]
+Road_Ap = [c,d]
+Road_Ch = [e,f]
+Road_Me = ["?","?"]
+Kas_AG = [i,j]
+Kas_Ap = [l,m]
+Kas_Ch = [n,o]
+Kas_Me = [p,q]
+Radi_AG = [r,s]
+Radi_Ap = [t,u]
+Radi_Ch = [v,w]
+Radi_Me = [x,y]
+Indi_AG = [aa, ab]
+Indi_Ap = [bb, bc]
+Indi_Ch = [cc, cd]
+Indi_Me = [dd, de]
 
 
 
