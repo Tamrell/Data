@@ -123,7 +123,6 @@ Pathvectors_Kasios = Pathvectors.ix[9:17]
 Pathvectors_Radiance = Pathvectors.ix[18:26]
 Pathvectors_Indigo = Pathvectors.ix[27:35]
 
-
 def deg_vec(deg):
     rad=deg*math.pi/180
     x=math.cos(rad)
@@ -143,7 +142,7 @@ def giveVars(windvector,path):
 
 def payup(meting,downwind,azimuth,std_az):
     exponent= (downwind * azimuth)/(2*std_az)
-    return (meting*math.pi*std_az*math.e**(exponent))/1000
+    return (meting*math.pi*std_az*math.e**(exponent))
 
     april = (df[datetime(2016,4,1,0):datetime(2016,4,30,23)])
 
@@ -171,26 +170,76 @@ for stof in chemicals:
 
 
 count =- 1
-ueberlist=[]
+ueberlist_road=[]
+ueberlist_kas=[]
+ueberlist_radi=[]
+ueberlist_indi=[]
 for stof in chemicals:
     count += 1
-    list=[]
-    pathrow = Pathvectors_Roadrunner.ix[count%9]
-    path = [int(pathrow['X']),int(pathrow['Y'])]
+    list1=[]
+    list2=[]
+    list3=[]
+    list4=[]
+    pathrow1 = Pathvectors_Roadrunner.ix[count%9]
+    path1 = [int(pathrow1['X']),int(pathrow1['Y'])]
+    [id2, id3, id4] = [(9+(count%9)), (18+(count%9)),(27+(count%9))]
+    pathrow2 = Pathvectors_Kasios.ix[id2]
+    path2 = [int(pathrow2['X']),int(pathrow2['Y'])]
+    pathrow3 = Pathvectors_Radiance.ix[id3]
+    path3 = [int(pathrow3['X']),int(pathrow3['Y'])]
+    pathrow4 = Pathvectors_Indigo.ix[id4]
+    path4 = [int(pathrow4['X']),int(pathrow4['Y'])]
     std_az = std_azilist[count]
     for index, row in df.iterrows():
         meting = row[stof]
         windvector = deg_vec(row["Wind Direction Spline"])
-        [downwind,azimuth] = giveVars(windvector,path)
-        cost = payup(meting,downwind,azimuth,std_az)
-        list.append(cost)
-    ueberlist.append(list)
+        [downwind1,azimuth1] = giveVars(windvector,path1)
+        [downwind2,azimuth2] = giveVars(windvector,path2)
+        [downwind3,azimuth3] = giveVars(windvector,path3)
+        [downwind4,azimuth4] = giveVars(windvector,path4)
+        cost1 = payup(meting,downwind1,azimuth1,std_az)
+        cost2 = payup(meting,downwind2,azimuth2,std_az)
+        cost3 = payup(meting,downwind3,azimuth3,std_az)
+        cost4 = payup(meting,downwind4,azimuth4,std_az)
+        list1.append(cost1)
+        list2.append(cost2)
+        list3.append(cost3)
+        list4.append(cost4)
+    ueberlist_road.append(list1)
+    ueberlist_kas.append(list2)
+    ueberlist_radi.append(list3)
+    ueberlist_indi.append(list4)
 
+verantwoordelijke=[]
+waarschijnlijkheden=[]
+
+for i in range(len(ueberlist_road)):
+    roady = ueberlist_road[i]
+    kasi = ueberlist_kas[i]
+    radi = ueberlist_radi[i]
+    indi = ueberlist_indi[i]
+    cuz=[]
+    probs=[]
+    for j in range(len(ueberlist_road[i])):
+        check = [roady[j],kasi[j],radi[j],indi[j]]
+        likeli = 1/roady[j] + 1/kasi[j] + 1/radi[j] + 1/indi[j]
+        val, idx = min((val, idx) for (idx, val) in enumerate(check))
+        prob = (1/val) / likeli
+        guys = ["Road","Kas","Radi","Indi"]
+        cuzza = guys[idx]
+        cuz.append(cuzza)
+        probs.append(prob)
+    verantwoordelijke.append(cuz)
+    waarschijnlijkheden.append(probs)
+
+Causa = pd.DataFrame()
+Probs = pd.DataFrame()
 
 count = -1
-VarDataframe = pd.DataFrame()
 for stof in chemicals:
     count += 1
-    VarDataframe[stof] = ueberlist[count]
+    Causa[stof]= verantwoordelijke[count]
+    Probs[stof]= waarschijnlijkheden[count]
 
-VarDataframe.to_csv('Costs_Out.csv', index=False, header=False)
+Causa.to_csv('Who_Out.csv', index=False, header=False)
+Probs.to_csv('Prob_Out.csv', index=False, header=False)
