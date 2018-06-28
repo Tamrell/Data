@@ -8,7 +8,7 @@ import pandas, math, numpy, time, os
 from bokeh.layouts import gridplot, row, column
 from bokeh.io import output_file, show
 from bokeh.plotting import figure
-
+import statistics as stat
 
 # In[ ]:
 
@@ -59,7 +59,7 @@ for sensor in range(1,10):
 
 
 grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title='Everything')
-show(grid)
+#show(grid)
 
 
 # In[7]:
@@ -227,7 +227,7 @@ def plotGraphs(SData,overlap,chemicals):
 
         print('En dan nu plotten')
         grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title='Everything')
-        show(grid)
+        #show(grid)
 
 plotGraphs(SData,overlap,chemicals)
 
@@ -245,7 +245,7 @@ for factorie in overlap:
         numOverlaps = 0
         numCorrect = 0
         means = []
-        for sensor in [1,2,3,6,7,8]:
+        for sensor in [1, 2, 6, 7,8]:
             timestamps = overlap[factorie][sensor]
             mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 3)]['Reading'].values)
             readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Timestamp'].isin(timestamps))]['Reading'].values
@@ -257,5 +257,12 @@ for factorie in overlap:
                 numOverlaps += 1
         table.append([factorie,chemical,numOverlaps,int((numCorrect/numOverlaps)*100),mean,numpy.mean(means),int((numpy.mean(means)/mean)*100)])
 
+toenames = [i[-1] for i in table]
+std = stat.stdev(toenames)
+mn = stat.mean(toenames)
+
+for i in table:
+    i.append((i[-1] - mn)/std )
+
 os.system('clear')
-print(tabulate(table,headers=['factorie','chemicals','# overlaps','% correct','Mean','Mean Overlap','% toename']))
+print(tabulate(table,headers=['factory','chemicals','# overlaps','% correct','Mean','Mean Overlap','% increase', 'stdev of increase']))
