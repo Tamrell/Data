@@ -12,6 +12,8 @@
       <p class="title"> Analysis of Chemical Emissions </p>
       <a href="#plot1">AG behaviour over time</a>
       <a href="#plot2">Cumulative plot</a>
+      <a href="#plot3">Chemicals Over Wind</a>
+      <a href="#plot4">Chemicals linked to factory</a>
     </div>
     <center>
 
@@ -21,7 +23,11 @@
         <a href="bokeh_plots/Ch behaviour over time.html">Ch behaviour over time</a>
         <a href="bokeh_plots/Me behaviour over time.html">Me behaviour over time</a>
         <p class="text1">
-          AG behaviour over time
+          AG behaviour over time:
+          In order to take a first look at the consistency in readings of the sensors,
+          a scatterplot has been made for each sensor-chemical pair.
+          AG (AGOC-3A) abundancy (blue) at the sensors
+          and their average measurement per month (black)
         </p>
         <embed class="gridplot" src="bokeh_plots/AG behaviour over time.html">
       </div>
@@ -29,9 +35,25 @@
       <div id="plot2" class="box1">
         <a href="bokeh_plots/cumulative plot.html">Full screen plot</a>
         <p class="text1">
-          Cumulative plot
+          Cumulative abundancy for each chemical, for each sensor.
         </p>
         <embed class="cumulative" src="bokeh_plots/cumulative plot.html">
+      </div>
+
+      <div id="plot3" class="box1">
+        <a href="bokeh_plots/Chemicals Over Wind (row) .html">Full screen plot</a>
+        <p class="text1">
+          Abundancy of each chemical over wind speed.
+        </p>
+        <embed class="overWind" src="bokeh_plots/Chemicals Over Wind (row) .html">
+      </div>
+
+      <div id="plot4" class="box1">
+        <a href="bokeh_plots/chem_fac_pair.png">Full screen plot</a>
+        <p class="text1">
+          Chemicals linked to factory.
+        </p>
+        <img src="bokeh_plots/chem_fac_pair.png" alt="Table Chem linked to factory">
       </div>
 
     </center>

@@ -35,3 +35,12 @@ body {
   height: 650px;
   width: 50%;
   }
+
+  .overWind {
+    height: 450px;
+    width: 65%;
+  }
+
+#plot2 {
+  height: 800px;
+}

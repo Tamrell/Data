@@ -367,6 +367,9 @@ for stof in chemicals:
                     Indi_Ch.append(weight)
                     Indi_Ch.append(math.sqrt(probs[i]))
         if count >= 27:
+            for factory in ["Road", "Kas", "Radi", "Indi"]:
+
+
             if guys[i] == "Road" :
                 if probs[i] > 0.5 :
                     weight = meting[i] * math.sqrt(probs[i])

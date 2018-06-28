@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 from time import sleep
+from bokeh.models import Range1d
 
 from bokeh.plotting import figure, show, output_file, save
-from bokeh.layouts import row, gridplot
+from bokeh.layouts import row, gridplot, column
 
 from datetime import datetime
 
@@ -55,7 +56,7 @@ def all_chems(df):
         p.scatter(x=df['Wind Speed Spline'], y=df['All' + chem],
                   color=color_map[chem], legend=chem, alpha=0.4)
     p.legend.click_policy="hide"
-    save(p)
+    return(p)
 
 
 def all_chems2(df):
@@ -82,6 +83,29 @@ def all_chems2(df):
     plots.append(all_chems(df))
     save(row(*plots))
 
+def all_chems2_limited(df):
+    '''Scatter-plots all chemicals in 4 bokeh plots aligned in a row.'''
+    # Define data set/initialize variables
+    chemicals = ['Ap', 'Ch', 'Me', 'AG']
+    color_map = {'Ap': 'green', 'Ch': 'red', 'Me': 'blue', 'AG':'orange'}
+    sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    plots = []
+
+    # Make a plot for each chemical
+    for chem in chemicals:
+
+        # Sum all readings of the chemical at a given date time
+        df['All' + chem] = sum([df[chem + sen] for sen in sensors])
+
+        output_file('EDA/limited Chemicals Over Wind (row) .html')
+        p = figure(title='Chemical abundancy if ' + chem + ' over wind speed', plot_width=400, plot_height=400, y_range=(0, 20))
+        p.yaxis.axis_label = 'Reading (ppm)'
+        p.xaxis.axis_label = 'Wind Speed'
+        p.scatter(x=df['Wind Speed Spline'], y=df['All' + chem],
+                  color=color_map[chem], legend=chem, alpha=0.8)
+        plots.append(p)
+    # plots.append(all_chems(df))
+    save(row(*plots))
 
 def all_chems3(df):
     chemicals = ['Ap', 'Ch', 'Me', 'AG']
@@ -123,7 +147,7 @@ def cumulative_Chems(df):
         output_file('EDA/cumulative sums/Cumulative ' + chem + ' over time.html')
         for sen in sensors:
             p = figure(x_axis_type='datetime',
-                       title=chem + ' abundancy at ' + sen, plot_width=300, plot_height=300)
+                       title=chem + ' abundancy at sensor' + sen, plot_width=300, plot_height=300)
             for month in ['2016-04', '2016-08', '2016-12']:
 
 
@@ -184,6 +208,28 @@ def cumulative_Chems3(df):
         all_plots.append(plots)
     save(gridplot(all_plots))
 
+def cumulative_Chems_year(df):
+    chemicals = ['Ap', 'Ch', 'Me', 'AG']
+    color_map = {'Ap': 'green', 'Ch': 'red', 'Me': 'blue', 'AG':'orange'}
+    sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    df = df.cumsum()
+    all_plots = []
+    output_file('EDA/cumulative sums/ALL yearly.html')
+
+    for sen in sensors:
+        p = figure(x_axis_type='datetime',
+                   title='Cumulative abundancy at sensor ' +
+                   sen, plot_width=900)#, plot_he1ight=300)
+        for chem in chemicals:
+            p.yaxis.axis_label = 'Cumulative Reading'
+            p.xaxis.axis_label = 'Date Time'
+            p.line(x=df.index,
+                   y=df[chem + sen], legend=chem + sen,
+                   color=color_map[chem])
+            p.legend.click_policy="hide"
+        all_plots.append(p)
+    save(column(all_plots))
+
 def cumulative_Chems_per_chem(df):
     chemicals = ['Ap', 'Ch', 'Me', 'AG']
     color_map = {'1': 'green', '2': 'red', '3': 'blue', '4': 'grey', '5': 'orange', '6': 'yellow', '7': 'purple', '8': 'brown', '9': 'black'}
@@ -242,4 +288,4 @@ if __name__ == '__main__':
     sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     speed_mod = 0.15
 
-    cumulative_Chems_per_chem_monthly_reset_edition(df)
+    all_chems2_limited(df)

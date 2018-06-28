@@ -27,7 +27,7 @@ for index,row in FactoriesInput.iterrows():
     factories[row['Factory']] = [row['X'],row['Y']]
 for index,row in SensorsInput.iterrows():
     sensors[row['Sensor']] = [row['X'],row['Y']]
-    
+
 chemicals = ['Methylosmolene','Chlorodinine','AGOC-3A','Appluimonia']
 
 
@@ -56,8 +56,8 @@ for sensor in range(1,10):
         elif chemical == 'Appluimonia':
             p4.circle(timestamps,readings)
     plots.append([p1,p2,p3,p4])
-    
-    
+
+
 grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title='Everything')
 show(grid)
 
@@ -77,13 +77,13 @@ def getAngles(factories,sensors):
             dy = sensors[sensor][1] - factories[factorie][1]
             angle = math.degrees(numpy.arctan2(dy,dx))
             if angle < 0:
-                angle = 360 + angle            
+                angle = 360 + angle
             angles['%s_%s'%(factorie,sensor)] = angle
     return angles
 
 angles = getAngles(factories,sensors)
 
-# return dictionary with a range of X degrees around the angle for every angle from getAngles 
+# return dictionary with a range of X degrees around the angle for every angle from getAngles
 def makeRanges(angles,X):
     ranges = {}
     for angle in angles:
@@ -94,14 +94,14 @@ def makeRanges(angles,X):
         Xmax = angles[angle] + X
         ranges[angle] = [Xmin,Xmax]
     return ranges
-        
+
 ranges = makeRanges(angles,10)
 
-# convert given wind direction to unit circle axis 
+# convert given wind direction to unit circle axis
 def convertWindDirection(MData):
     directionsNew = {}
     for index, row in MData.iterrows():
-        windDirection = 270 - row['Wind Direction Linear'] 
+        windDirection = 270 - row['Wind Direction Linear']
         if windDirection < 0:
             windDirection += 180
         directionsNew[row['Timestamp']] = windDirection
@@ -110,7 +110,7 @@ def convertWindDirection(MData):
 windDirections = convertWindDirection(MData)
 
 
-# returns a dictionary with all the moments the wind blows 
+# returns a dictionary with all the moments the wind blows
 # from a factorie to within the range of a sensor
 def findOverlap(windDirections,ranges):
     overlap = []
@@ -126,7 +126,7 @@ def findOverlap(windDirections,ranges):
                 if (d >= Xmin) & (d <= Xmax):
                     overlap.append('%s_%s'%(r,direction))
     return overlap
-        
+
 overlap = findOverlap(windDirections,ranges)
 
 # splits the overlaps from findOverlap() per factory per sensor
@@ -137,9 +137,9 @@ def overlapPerFactoriePerSensor(overlap):
         for sensor in range(1,10):
             overlapNew[factorie][sensor] = []
             for o in overlap:
-                if (o[0:3] == factorie) & (o[10] == str(sensor)):                
+                if (o[0:3] == factorie) & (o[10] == str(sensor)):
                     overlapNew[factorie][sensor].append(o[12:])
-    return overlapNew    
+    return overlapNew
 
 overlap = overlapPerFactoriePerSensor(overlap)
 
@@ -148,32 +148,32 @@ overlap = overlapPerFactoriePerSensor(overlap)
 
 '''creates seperate graphs for every factory
 makes plots per sensor per chemical with the timestamps on the horizontal axes
-and the readings on the times off overlap on the vertical axes. A blue line 
+and the readings on the times off overlap on the vertical axes. A blue line
 represents the overall mean value for that chemical for that sensor '''
 def plotGraphs(SData,overlap,chemicals):
     for factorie in overlap:
         output_file('output/%s.html'%factorie)
         plots = []
-                
+
         for sensor in range(1,10):
             print('Ik begin nu aan sensor %i'%sensor)
-            
+
             Methylosmolene = []
             MethylosmoleneTS = []
             MethylosmoleneMean = numpy.mean(pandas.Series(SData.loc[(SData['Monitor'] == sensor) & (SData['Chemical'] == 'Methylosmolene')]['Reading']).values)
-            
+
             Chlorodinine = []
             ChlorodinineTS = []
             ChlorodinineMean = numpy.mean(pandas.Series(SData.loc[(SData['Monitor'] == sensor) & (SData['Chemical'] == 'Chlorodinine')]['Reading']).values)
-            
+
             AGOC_3A = []
             AGOC_3ATS = []
             AGOC_3AMean = numpy.mean(pandas.Series(SData.loc[(SData['Monitor'] == sensor) & (SData['Chemical'] == 'AGOC-3A')]['Reading']).values)
-            
+
             Appluimonia = []
             AppluimoniaTS = []
             AppluimoniaMean = numpy.mean(pandas.Series(SData.loc[(SData['Monitor'] == sensor) & (SData['Chemical'] == 'Appluimonia')]['Reading']).values)
-            
+
             p1 = figure(plot_width=250,plot_height=250,title='%s %s'%(sensor,'Methylosmolene'))#, y_range = (0,5))
             p2 = figure(plot_width=250,plot_height=250,title='%s %s'%(sensor,'Chlorodinine'))#, y_range = (0,5))
             p3 = figure(plot_width=250,plot_height=250,title='%s %s'%(sensor,'AGOC_3A'))#, y_range = (0,5))
@@ -181,56 +181,56 @@ def plotGraphs(SData,overlap,chemicals):
 
             timestamps = overlap[factorie][sensor]
             print('%i x overlap tussen %s en sensor %i'%(len(timestamps),factorie,sensor))
-            
-            
+
+
             for index, row in SData[(SData['Monitor'] == sensor) & (SData['Timestamp'].isin(timestamps))].iterrows():
                 if str(row['Timestamp'] in timestamps):
-                    
+
                     if row['Chemical'] == 'Methylosmolene':
                             Methylosmolene.append(row['Reading'])
                             MethylosmoleneTS.append(row['Timestamp'])
-                            
+
                     if row['Chemical'] == 'Chlorodinine':
                         Chlorodinine.append(row['Reading'])
                         ChlorodinineTS.append(row['Timestamp'])
-                            
+
                     if row['Chemical'] == 'AGOC-3A':
                         AGOC_3A.append(row['Reading'])
                         AGOC_3ATS.append(row['Timestamp'])
-                            
+
                     if row['Chemical'] == 'Appluimonia':
                         Appluimonia.append(row['Reading'])
                         AppluimoniaTS.append(row['Timestamp'])
-                        
+
             print('Me: %i'%len(Methylosmolene))
             print('Ch: %i'%len(Chlorodinine))
             print('AG: %i'%len(AGOC_3A))
             print('Ap: %i'%len(Appluimonia))
 
-            MethylosmoleneTS = [i for i in range(len(Methylosmolene))]                            
+            MethylosmoleneTS = [i for i in range(len(Methylosmolene))]
             p1.circle(MethylosmoleneTS, Methylosmolene, color='orange')
             p1.line(MethylosmoleneTS,[MethylosmoleneMean for i in range(len(MethylosmoleneTS))])
-            
+
             ChlorodinineTS = [i for i in range(len(Chlorodinine))]
             p2.circle(ChlorodinineTS, Chlorodinine, color='orange')
             p2.line(ChlorodinineTS,[ChlorodinineMean for i in range(len(ChlorodinineTS))])
-            
+
             AGOC_3ATS = [i for i in range(len(AGOC_3A))]
             p3.circle(AGOC_3ATS, AGOC_3A, color='orange')
             p3.line(AGOC_3ATS,[AGOC_3AMean for i in range(len(AGOC_3ATS))])
-            
+
             AppluimoniaTS = [i for i in range(len(Appluimonia))]
             p4.circle(AppluimoniaTS, Appluimonia, color='orange')
             p4.line(AppluimoniaTS,[AppluimoniaMean for i in range(len(AppluimoniaTS))])
-            
+
             plots.append([p1,p2,p3,p4])
-        
+
         print('En dan nu plotten')
         grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title='Everything')
         show(grid)
-                    
+
 plotGraphs(SData,overlap,chemicals)
-        
+
 
 
 # In[9]:
@@ -245,7 +245,7 @@ for factorie in overlap:
         numOverlaps = 0
         numCorrect = 0
         means = []
-        for sensor in [1,2,3,6,7,8]:
+        for sensor in [1,2,3, 4,6,7,8]:
             timestamps = overlap[factorie][sensor]
             mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 3)]['Reading'].values)
             readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Timestamp'].isin(timestamps))]['Reading'].values
@@ -257,6 +257,5 @@ for factorie in overlap:
                 numOverlaps += 1
         table.append([factorie,chemical,numOverlaps,int((numCorrect/numOverlaps)*100),mean,numpy.mean(means),int((numpy.mean(means)/mean)*100)])
 
-os.system('clear')            
+os.system('clear')
 print(tabulate(table,headers=['factorie','chemicals','# overlaps','% correct','Mean','Mean Overlap','% toename']))
-

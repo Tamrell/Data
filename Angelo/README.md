@@ -37,4 +37,4 @@ n'th of June | what?
 24 | made different correction functions for sensor 4
 25 | explored github pages and possibilities therein
 26 | worked on the report, exploring different visualisations for data
-27 |
+27 | tried working on the website, errors everywhere
