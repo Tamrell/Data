@@ -8,6 +8,7 @@ import pandas, math, numpy, time, os
 from bokeh.layouts import gridplot, row, column
 from bokeh.io import output_file, show
 from bokeh.plotting import figure
+from scipy import stats
 
 
 # In[ ]:
@@ -95,7 +96,7 @@ def makeRanges(angles,X):
         ranges[angle] = [Xmin,Xmax]
     return ranges
 
-ranges = makeRanges(angles,10)
+ranges = makeRanges(angles,5)
 
 # convert given wind direction to unit circle axis
 def convertWindDirection(MData):
@@ -156,8 +157,13 @@ def plotGraphs(SData,overlap,chemicals):
         plots = []
 
         for sensor in range(1,10):
+ 
+            #print('Ik begin nu aan sensor %i'%sensor)
+            
+
             print('Ik begin nu aan sensor %i'%sensor)
 
+ 
             Methylosmolene = []
             MethylosmoleneTS = []
             MethylosmoleneMean = numpy.mean(pandas.Series(SData.loc[(SData['Monitor'] == sensor) & (SData['Chemical'] == 'Methylosmolene')]['Reading']).values)
@@ -180,9 +186,15 @@ def plotGraphs(SData,overlap,chemicals):
             p4 = figure(plot_width=250,plot_height=250,title='%s %s'%(sensor,'Appluimonia'))#, y_range = (0,5))
 
             timestamps = overlap[factorie][sensor]
+ 
+            #print('%i x overlap tussen %s en sensor %i'%(len(timestamps),factorie,sensor))
+            
+            
+
             print('%i x overlap tussen %s en sensor %i'%(len(timestamps),factorie,sensor))
 
 
+ 
             for index, row in SData[(SData['Monitor'] == sensor) & (SData['Timestamp'].isin(timestamps))].iterrows():
                 if str(row['Timestamp'] in timestamps):
 
@@ -201,11 +213,19 @@ def plotGraphs(SData,overlap,chemicals):
                     if row['Chemical'] == 'Appluimonia':
                         Appluimonia.append(row['Reading'])
                         AppluimoniaTS.append(row['Timestamp'])
+ 
+                        
+            #print('Me: %i'%len(Methylosmolene))
+            #print('Ch: %i'%len(Chlorodinine))
+            #print('AG: %i'%len(AGOC_3A))
+            #print('Ap: %i'%len(Appluimonia))
 
-            print('Me: %i'%len(Methylosmolene))
-            print('Ch: %i'%len(Chlorodinine))
-            print('AG: %i'%len(AGOC_3A))
-            print('Ap: %i'%len(Appluimonia))
+
+            #print('Me: %i'%len(Methylosmolene))
+            #print('Ch: %i'%len(Chlorodinine))
+            #print('AG: %i'%len(AGOC_3A))
+            #print('Ap: %i'%len(Appluimonia))
+ 
 
             MethylosmoleneTS = [i for i in range(len(Methylosmolene))]
             p1.circle(MethylosmoleneTS, Methylosmolene, color='orange')
@@ -224,8 +244,13 @@ def plotGraphs(SData,overlap,chemicals):
             p4.line(AppluimoniaTS,[AppluimoniaMean for i in range(len(AppluimoniaTS))])
 
             plots.append([p1,p2,p3,p4])
+ 
+        
+        #print('En dan nu plotten')
 
-        print('En dan nu plotten')
+
+        #print('En dan nu plotten')
+ 
         grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title='Everything')
         show(grid)
 
@@ -234,7 +259,6 @@ plotGraphs(SData,overlap,chemicals)
 
 
 # In[9]:
-
 
 from tabulate import tabulate
 
@@ -245,17 +269,39 @@ for factorie in overlap:
         numOverlaps = 0
         numCorrect = 0
         means = []
-        for sensor in [1,2,3, 4,6,7,8]:
+ 
+        mean6 = numpy.mean(SData[(SData['Monitor'] == 6) & (SData['Chemical'] == chemical) & (SData['Reading'] < 5)]['Reading'].values)
+        for sensor in [1,2,6,7,8]:
+ 
             timestamps = overlap[factorie][sensor]
-            mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 3)]['Reading'].values)
-            readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Timestamp'].isin(timestamps))]['Reading'].values
+
+            #  calculate mean reading for specific chemical en monitor
+            mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 5)]['Reading'].values)
+
+            readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical)& (SData['Timestamp'].isin(timestamps))]['Reading'].values
             if len(readingsOverlapping) > 0:
                 means.append(numpy.mean(readingsOverlapping))
             for o in readingsOverlapping:
                 if o > mean:
                     numCorrect += 1
                 numOverlaps += 1
-        table.append([factorie,chemical,numOverlaps,int((numCorrect/numOverlaps)*100),mean,numpy.mean(means),int((numpy.mean(means)/mean)*100)])
+
+            # calculate confidence interval    
+            Sem = stats.sem(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical)]['Reading'].values)
+            conf = [mean-1.99*Sem, mean+1.99*Sem]
+
+
+
+                
+        table.append([factorie,chemical,numOverlaps,int((numCorrect/numOverlaps)*100),mean,numpy.mean(means),int((numpy.mean(means)/mean)*100),conf,int((mean6/mean)*100)])
+
+ 
+os.system('clear')            
+with open('output/resultsWithout459.txt','w') as file:
+    file.write(tabulate(table,headers=['factorie','chemicals','# overlaps','% correct','Mean','% toename','Mean Overlap','% toename','Confidence interval','mean6']))
+#print(tabulate(table,ers=['factorie','chemicals','# overlaps','% correct','Mean','Mean Overlap','% toename']))
+
 
 os.system('clear')
-print(tabulate(table,headers=['factorie','chemicals','# overlaps','% correct','Mean','Mean Overlap','% toename']))
+print(tabulate(table,headers=['factorie','chemicals','# overlaps','% correct','Mean','Mean Overlap',' Conf','% toename']))
+ 
