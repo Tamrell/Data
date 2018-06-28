@@ -55,11 +55,11 @@ def compareWDvsAngles(SD,MD,angles,dr):
 			if rw >= ang-dr and rw <= ang+dr:
 				agreements['%s_%s_%s'%(ts,angle[0:3],angle[4:])] = math.degrees(ang-rw)
 				#print(row['Timestamp'],angle,angles[angle],row['Wind Direction Linear'])
-	return agreements	
+	return agreements
 
 agreements = compareWDvsAngles(SData,MData,angles,10)
 
-
+print(agreements)
 
 '''
 for factorie in factories:
@@ -143,11 +143,11 @@ for factorie in factories:
 		plots.append([p1,p2,p3,p4])
 
 	grid = gridplot([[plots[i][0] for i in range(9)],[plots[i][1] for i in range(9)],[plots[i][2] for i in range(9)],[plots[i][3] for i in range(9)]],title=factorie)
-	#grid = gridplot([[plots[0][0],plots[1][0]],[plots[0][1],plots[1][1]]])	
+	#grid = gridplot([[plots[0][0],plots[1][0]],[plots[0][1],plots[1][1]]])
 	show(grid)
 
 
-					
+
 					#print(agreement[0:19],factorie,sensor,chemical,reading)
 
 
