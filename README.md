@@ -2,6 +2,7 @@
 Project folder for DAV
 ## VAST Challenge 2017 MC2
 Documentation of the project: https://www.sharelatex.com/read/wqxsrkjgrvpr
+Github: https://github.com/Tamrell/De-Gedreven-Bois
 
 ### introductionary text
 
