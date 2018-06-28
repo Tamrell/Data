@@ -245,7 +245,7 @@ for factorie in overlap:
         numOverlaps = 0
         numCorrect = 0
         means = []
-        for sensor in [1,2,3, 4,6,7,8]:
+        for sensor in [1,2,3,6,7,8]:
             timestamps = overlap[factorie][sensor]
             mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 3)]['Reading'].values)
             readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Timestamp'].isin(timestamps))]['Reading'].values

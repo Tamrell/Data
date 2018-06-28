@@ -3,6 +3,7 @@ import numpy as np
 from pandas import ExcelWriter
 from pandas import ExcelFile
 from bokeh.plotting import figure, output_file, show
+from statistics import mean
 
 from pre_processing import integrated_data
 
@@ -156,8 +157,8 @@ def calculate_mean_and_std_for_all():
         print(calculate_mean(8, sensor))
         print(calculate_mean(12, sensor))
 
-
-plot_sensor_reading(8)
+print([calculate_standard_deviation(i) for i in range(1, 10)].mean)
+#plot_sensor_reading(8)
 
 #calculate_mean_and_std_for_all()
 

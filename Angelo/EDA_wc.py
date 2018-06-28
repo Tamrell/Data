@@ -74,11 +74,13 @@ def all_chems2(df):
         df['All' + chem] = sum([df[chem + sen] for sen in sensors])
 
         output_file('EDA/Chemicals Over Wind (row).html')
-        p = figure(title='Chemical abundancy over wind speed', plot_width=400, plot_height=400)
+        p = figure(title=chem + ' reading over wind speed', plot_width=300, plot_height=300)
         p.yaxis.axis_label = 'Reading (ppm)'
         p.xaxis.axis_label = 'Wind Speed'
         p.scatter(x=df['Wind Speed Spline'], y=df['All' + chem],
-                  color=color_map[chem], legend=chem, alpha=0.8)
+                  color=color_map[chem], legend=chem, alpha=0.3)
+        p.toolbar.logo = None
+        p.toolbar_location = None
         plots.append(p)
     plots.append(all_chems(df))
     save(row(*plots))
@@ -98,11 +100,13 @@ def all_chems2_limited(df):
         df['All' + chem] = sum([df[chem + sen] for sen in sensors])
 
         output_file('EDA/limited Chemicals Over Wind (row) .html')
-        p = figure(title='Chemical abundancy if ' + chem + ' over wind speed', plot_width=400, plot_height=400, y_range=(0, 20))
+        p = figure(title=chem + ' reading over wind speed', plot_width=300, plot_height=300, y_range=(0, 20))
         p.yaxis.axis_label = 'Reading (ppm)'
         p.xaxis.axis_label = 'Wind Speed'
         p.scatter(x=df['Wind Speed Spline'], y=df['All' + chem],
-                  color=color_map[chem], legend=chem, alpha=0.8)
+                  color=color_map[chem], legend=chem, alpha=0.3)
+        p.toolbar.logo = None
+        p.toolbar_location = None
         plots.append(p)
     # plots.append(all_chems(df))
     save(row(*plots))
@@ -127,6 +131,7 @@ def all_chems3(df):
                 p.yaxis.axis_label = 'Reading'
                 p.xaxis.axis_label = 'Date Time'
                 p.scatter(x=df[month].index, y=df[month][chem + sen], legend=chem + sen)
+
 
             p.line(x=means_x,
                    y=means_y,
@@ -288,4 +293,5 @@ if __name__ == '__main__':
     sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     speed_mod = 0.15
 
+    all_chems2(df)
     all_chems2_limited(df)
