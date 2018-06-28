@@ -1,20 +1,8 @@
-# Pre-processing by Angelo Groot
-For each of the 4 categories of pre-processing is a seperate .py file:
-- cleaning.py
-- integration.py
-- transformation.py
-- reduction.py
+# Folder of Angelo Groot
+In the EDA Folder, you can find all the plots which contain insightfull info about the data.
 
-these can all be ran by typing into the terminal:
-`python main.py`
-
-
-## notes
-- manual linear regression on points where 300+ -> 100-?
-- Cubic spline seems to be unable to fill the last 2 entries.
-- The period from 2016-4-30:22:00 to 2016-08-04-17:00 has been neglected in the interpolation because of unavailable data.
-- apparantly, there are hours missing in the readings
-
+these can all be ran by typing into the terminal (after enabling the function in the file, it's all bound together by duct-tape after all.):
+`python EDA.py`
 
 ### Invested time in the project
 
