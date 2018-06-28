@@ -245,7 +245,7 @@ for factorie in overlap:
         numOverlaps = 0
         numCorrect = 0
         means = []
-        for sensor in [1, 2, 6, 7,8]:
+        for sensor in [1, 2, 3, 4, 5, 6, 7,8, 9]:
             timestamps = overlap[factorie][sensor]
             mean = numpy.mean(SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Reading'] < 3)]['Reading'].values)
             readingsOverlapping = SData[(SData['Monitor'] == sensor) & (SData['Chemical'] == chemical) & (SData['Timestamp'].isin(timestamps))]['Reading'].values
@@ -265,4 +265,5 @@ for i in table:
     i.append((i[-1] - mn)/std )
 
 os.system('clear')
-print(tabulate(table,headers=['factory','chemicals','# overlaps','% correct','Mean','Mean Overlap','% increase', 'stdev of increase']))
+# print(tabulate(table,headers=['factory','chemicals','# overlaps','% correct','Mean','Mean Overlap','% increase', 'stdev of increase']))
+print(tabulate(table, headers=['factory','chemicals','# overlaps','% correct','Mean','Mean Overlap','% increase', 'stdev of increase'] ,tablefmt="latex"))

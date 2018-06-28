@@ -221,14 +221,17 @@ def cumulative_Chems_year(df):
     all_plots = []
     output_file('EDA/cumulative sums/ALL yearly.html')
 
+    input(df)
+    df =  df['2016-04'].append(df['2016-08']).append(df['2016-12'])
+    input(df)
     for sen in sensors:
-        p = figure(x_axis_type='datetime',
+        p = figure(#x_axis_type='datetime',
                    title='Cumulative abundancy at sensor ' +
-                   sen, plot_width=900)#, plot_he1ight=300)
+                   sen, plot_width=900, plot_height=300)
         for chem in chemicals:
             p.yaxis.axis_label = 'Cumulative Reading'
-            p.xaxis.axis_label = 'Date Time'
-            p.line(x=df.index,
+            p.xaxis.axis_label = "n'th measured interval"
+            p.line(x=[i for i in range(df[chem + sen].size)],
                    y=df[chem + sen], legend=chem + sen,
                    color=color_map[chem])
             p.legend.click_policy="hide"
@@ -280,6 +283,7 @@ def cumulative_Chems_per_chem_monthly_reset_edition(df):
                        y=df[month][chem + sen].cumsum(), legend='Sensor ' + sen,
                        color=color_map[sen])
                 p.legend.click_policy="hide"
+
             plots.append(p)
         all_plots.append(plots)
     save(gridplot(all_plots))
@@ -293,5 +297,7 @@ if __name__ == '__main__':
     sensors = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     speed_mod = 0.15
 
-    all_chems2(df)
-    all_chems2_limited(df)
+
+    cumulative_Chems_year(df)
+    # all_chems2(df)
+    # all_chems2_limited(df)

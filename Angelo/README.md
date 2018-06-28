@@ -33,8 +33,9 @@ n'th of June | what?
 20 | Updated the final data
 21 | Worked on the report and plots
 22 | Worked on the report
-23 | --
+23 | -- (weekend be weekend)
 24 | made different correction functions for sensor 4
 25 | explored github pages and possibilities therein
 26 | worked on the report, exploring different visualisations for data
 27 | tried working on the website, errors everywhere
+28 | worked like mad on the still incomplete report.
