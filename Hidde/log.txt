@@ -5,5 +5,9 @@
 13-07 en 14-07: studeren voor tentamen voor andere studie
 15-07 en 16-07 terug naar de EDA, grafiek voor elke sensor van elk stofje gemaakt, experimenteren met interactief maken van de grafieken. 
 17-07: grafieken samenvoegen + eerste plot obv windrichting
-18-07 zo algemeen mogelijke functie schrijven voor plotter tov wind + documentatie bijwerken
-
+18-07: zo algemeen mogelijke functie schrijven voor plotter tov wind + documentatie bijwerken
+19-07: Proberen grafieken interactief te maken, fouten uit eerdere grafieken gehaald, verschillende functies geschreven die hoeken tussen fabrieken en sensoren berekent
+20-07: Momenten van overlap tussen windrichting en fabriek->sensor bepalen, op deze momenten de gemeten waardes bij de sensor bepalen en deze per fabriek plotten
+21-07: Registreren van windoverlap verbeteren. Terug naar de basis en opnieuw opgebouwd. 
+22-07: Schrijven verslag 
+23-07 en 24-07: outliers registreren obv Standard error of the mean icm windrichting. Stuk code herschrijven zodat het geen 25 minuten meer nodig heeft om te runnen. Per grafiek het gemiddelde toevoegen, wordt geprobeerd hier een betrouwbaarheidsinterval omheen weer te geven, lukt nog niet helemaal
