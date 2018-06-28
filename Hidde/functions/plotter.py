@@ -130,7 +130,7 @@ for factorie in factories:
 		p3.line(AGOC_3ATS,AGOC_3A,color='orange')
 
 		p4.circle(AppluimoniaTS,Appluimonia)
-		p4.line(AppluimoniaTS, 	,color='orange')
+		p4.line(AppluimoniaTS, Appluimonia	,color='orange')
 
 		plots.append([p1,p2,p3,p4])
 
