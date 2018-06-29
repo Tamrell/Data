@@ -10,12 +10,30 @@
   <body>
     <div class="header">
       <p class="title"> Analysis of Chemical Emissions </p>
+      <a href="#plot5">map</a>
       <a href="#plot1">AG behaviour over time</a>
       <a href="#plot2">Cumulative plot</a>
       <a href="#plot3">Chemicals Over Wind</a>
+      <a href="#plot6">windspeed</a>
       <a href="#plot4">Chemicals linked to factory</a>
     </div>
     <center>
+
+      <div id="plot5" class="box1">
+        <a href="bokeh_plots/map.jpeg">Full screen plot</a>
+        <p class="text1">
+Map of the sensors and factories. The sensors measure te chemical abundancy of Appluimonia, Chlorodine, AGOC-3A, Methylosmolene.
+        </p>
+        <img src="bokeh_plots/map.jpeg" alt="Map of the sensors and factories">
+        <p class=text1>
+          1. Are all the sensors working properly at all times? Are there any un-
+          expected behaviors of the sensors through analyzing the readings they
+          capture? <br>
+          2. Which chemicals are being detected by the sensor group? What patterns
+          of chemical releases can be seen? <br>
+          3. Which factories are responsible for which chemical releases? <br>
+        </p>
+      </div>
 
       <div id="plot1" class="box1">
         <a href="bokeh_plots/AG behaviour over time.html">AG behaviour over time</a>
@@ -40,6 +58,14 @@
         <embed class="cumulative" src="bokeh_plots/cumulative plot.html">
       </div>
 
+      <div id="plot7" class="box1">
+        <a href="bokeh_plots/cumplot1.jpeg">Full screen plot hourly</a>
+        <p class="text1">
+          Hourly abundency.
+        </p>
+        <img src="bokeh_plots/cumplot1.jpeg" alt="Hourly abundency" style="width:500px;">
+      </div>
+
       <div id="plot3" class="box1">
         <a href="bokeh_plots/Chemicals Over Wind (row) .html">Full screen plot</a>
         <p class="text1">
@@ -48,12 +74,28 @@
         <embed class="overWind" src="bokeh_plots/Chemicals Over Wind (row) .html">
       </div>
 
+      <div id="plot6" class="box1">
+        <a href="bokeh_plots/windspeed.png">Full screen plot</a>
+        <p class="text1">
+          Windspeed over time.
+        </p>
+        <img src="bokeh_plots/windspeed.png" alt="windspeed over time">
+      </div>
+
+      <div id="plot8" class="box1">
+        <a href="bokeh_plots/winddirections.jpeg">Full screen plot</a>
+        <p class="text1">
+          Winddirections.
+        </p>
+        <img src="bokeh_plots/winddirections.jpeg" alt="Hourly abundency" style="width:500px;">
+      </div>
+
       <div id="plot4" class="box1">
-        <a href="bokeh_plots/chem_fac_pair.png">Full screen plot</a>
+        <a href="bokeh_plots/conclusion.jpeg">Full screen plot</a>
         <p class="text1">
           Chemicals linked to factory.
         </p>
-        <img src="bokeh_plots/chem_fac_pair.png" alt="Table Chem linked to factory">
+        <img src="bokeh_plots/conclusion.jpeg" alt="Table Chem linked to factory">
       </div>
 
     </center>
